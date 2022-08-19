@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { Avatar } from "react-native-paper";
+import {teacherImage, teacherLogo, pic, logout} from '../data/data.json';
 
 const Account = ({navigation}) => {
   const accountdetails = [
@@ -55,11 +56,11 @@ const Account = ({navigation}) => {
   ];
 
   return (
-    <View>
+    <View style={{backgroundColor: 'skyblue'}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
-            backgroundColor: "lightgray",
+            backgroundColor: "white",
             paddingBottom: 25,
             marginBottom: 3,
           }}
@@ -68,7 +69,9 @@ const Account = ({navigation}) => {
           <TouchableOpacity>
             <Avatar.Image
               style={{ alignSelf: "center" }}
-              source={require("../assets/icon.png")}
+              source={{
+                uri: teacherLogo,
+              }}
               size={130}
             />
           </TouchableOpacity>
@@ -84,11 +87,11 @@ const Account = ({navigation}) => {
               marginBottom: 3,
               paddingHorizontal: 5,
               paddingVertical: 5,
-              backgroundColor: "lightgray",
+              backgroundColor: "white",
             }}
           >
             <Avatar.Icon
-              style={{ backgroundColor: "darkgreen", margin: 5 }}
+              style={{ backgroundColor: "skyblue", margin: 5 }}
               icon={icon}
               size={40}
             />

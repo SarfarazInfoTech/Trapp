@@ -14,7 +14,6 @@ import {teacherImage, teacherLogo, pic, logout} from '../data/data.json';
 const Home = ({navigation}) => {
   return (
     <SafeAreaView>
-      <ScrollView vertical={true} showsVerticalScrollIndicator={true}>
         <View>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
             <View
@@ -97,7 +96,7 @@ const Home = ({navigation}) => {
             }}>
             {pic.map(({profile, index}) => (
               <>
-                <View style={styles.shadowCard} key={index}>
+                <TouchableOpacity onPress={() => navigation.navigate('Account')} activeOpacity={false} style={styles.shadowCard} key={index}>
                   <View style={styles.card}>
                     <Image
                       source={{
@@ -121,12 +120,11 @@ const Home = ({navigation}) => {
                       Profile
                     </Text>
                   </View>
-                </View>
+                </TouchableOpacity>
               </>
             ))}
           </View>
         </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };

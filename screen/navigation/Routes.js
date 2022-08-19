@@ -10,6 +10,7 @@ import RLogIn from '../recruiter/LogIn';
 import TLogIn from '../teacher/LogIn';
 import TSignUp from '../teacher/SignUp';
 import Home from '../teacher/Home';
+import Account from '../teacher/Account';
 
 const Stack = createNativeStackNavigator();
 
@@ -117,6 +118,11 @@ export default function Routes() {
           name="RSignUp"
           component={RSignUp}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Account"
+          component={Account}
+          options={{headerShown: true}}
         />
       </Stack.Navigator>
     </NavigationContainer>
