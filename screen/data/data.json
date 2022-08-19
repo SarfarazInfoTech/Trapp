@@ -1,0 +1,24 @@
+{
+  "teacherLogo": "https://th.bing.com/th/id/R.dc6057dbbff83e856eb6db8a26c2fd63?rik=m75wLipiL2vY4w&riu=http%3a%2f%2ficons.iconarchive.com%2ficons%2fgoogle%2fnoto-emoji-people-profession%2f1024%2f10224-woman-teacher-icon.png&ehk=sVggvrddCXKwUk3H29HanKRiF0xyFE6EGD0jY4SSthE%3d&risl=&pid=ImgRaw&r=0",
+
+  "recruiterLogo": "https://rekrutconsulting.com/wp-content/uploads/2021/01/recruitment-process-concept-icon-vector-illustration-design_24877-19938-removebg-preview-380x380.png",
+
+  "teacherImage": "https://th.bing.com/th/id/R.131468b046e41a6679392dfd9c691b81?rik=f7XWz%2bDiGnfBIw&riu=http%3a%2f%2fclipart-library.com%2fnew_gallery%2f210-2105587_student-education-welcome-blackboard-with-teacher-clipart.png&ehk=tOLCPw8PKIOgUVeJa6Kj6Tp1V8cgxlv6J%2fqQVU4gZvI%3d&risl=&pid=ImgRaw&r=0",
+
+  "pic": [
+    {
+      "profile": "https://cdn2.iconfinder.com/data/icons/education-633/100/math-teacher-5-education-school-teacher-instructor-classroom-math-desk-board-whiteboard-male-512.png"
+    },
+    {
+      "profile": "https://png.pngtree.com/png-clipart/20190120/ourlarge/pngtree-man-wearing-glasses-teachers-day-math-teacher-class-png-image_502937.jpg"
+    },
+    {
+      "profile": "https://i.pinimg.com/originals/24/74/8f/24748f4c6917e60051498d38e9047c3a.jpg"
+    },
+    {
+      "profile": "https://www.seekpng.com/png/detail/211-2112643_student-teacher-learning-addition-classroom-primary-school-teacher.png"
+    }
+  ],
+
+  "logout": "https://apprecs.org/gp/images/app-icons/300/a5/jp.co.kixx.tool.offwidget.jpg"
+}
