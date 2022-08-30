@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,68 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const TSignUp = ({navigation}) => {
-  const [name, setName] = useState();
+  const [displayName, setDisplayName] = useState();
   const [email, setEmail] = useState();
-  const [mobile, setMobile] = useState();
+  const [phoneNumber, setPhoneNumber] = useState();
   const [password, setPassword] = useState();
+  const [message, setMessage] = useState();
+
+  const handleSignup = async () => {
+    try {
+      if (!displayName && !email && !phoneNumber && !password) {
+        alert('Requred all fields!');
+      } else if (!displayName) {
+        alert('Requred Name !');
+      } else if (!phoneNumber) {
+        alert('Requred Mobile no. !');
+      } else if (!email && !password) {
+        alert('Requred Email & Password!');
+      } else if (!email) {
+        alert('Requred Email !');
+      } else if (!password) {
+        alert('Requred Password !');
+      } else {
+        const userSignUp = await auth().createUserWithEmailAndPassword(
+          email,
+          password,
+        );
+        
+        const userData = {
+          id: userSignUp.user.uid,
+          name: displayName,
+          email: email,
+          mobile: phoneNumber,
+          password: password,
+        }
+
+        await firestore().collection("users").doc(userSignUp.user.email).set(userData)
+        await auth().currentUser.sendEmailVerification();
+        await auth().signOut();
+        navigation.navigate('TLogIn');
+
+        Alert.alert(
+          'Please verify your email',
+          `Check out your Inbox and click email verification link.`,
+          [{text: 'OK', onPress: () => console.log('email verification link')}],
+        );
+
+        setMessage('');
+        console.log(userSignUp);
+      }
+    } catch (err) {
+      setMessage(err.message);
+      Alert.alert('', `${err.message}`, [
+        {text: 'OK', onPress: () => console.log('Signup Error', err)},
+      ]);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -22,11 +77,9 @@ const TSignUp = ({navigation}) => {
           <TextInput
             style={styles.inputBox}
             placeholder="Enter Your Name"
-            value={name}
-            onPressIn={() => {
-              console.log(name);
-            }}
-            onChangeText={value => setName(value)}
+            value={displayName}
+            onChangeText={value => setDisplayName(value)}
+            maxLength={25}
           />
         </View>
         <View style={{marginBottom: 10}}>
@@ -35,10 +88,8 @@ const TSignUp = ({navigation}) => {
             style={styles.inputBox}
             placeholder="Enter Your Email"
             value={email}
-            onPressIn={() => {
-              console.log(email);
-            }}
             onChangeText={value => setEmail(value)}
+            maxLength={40}
           />
         </View>
         <View style={{marginBottom: 10}}>
@@ -46,11 +97,10 @@ const TSignUp = ({navigation}) => {
           <TextInput
             style={styles.inputBox}
             placeholder="Enter Your Mobile"
-            value={mobile}
-            onPressIn={() => {
-              console.log(mobile);
-            }}
-            onChangeText={value => setMobile(value)}
+            value={phoneNumber}
+            onChangeText={value => setPhoneNumber(value)}
+            keyboardType = 'numeric'
+            maxLength={10}
           />
         </View>
         <View style={{marginBottom: 10}}>
@@ -60,13 +110,15 @@ const TSignUp = ({navigation}) => {
             placeholder="Enter Your Password"
             value={password}
             onChangeText={value => setPassword(value)}
+            secureTextEntry={true}
+            maxLength={8}
           />
         </View>
         <View style={{marginHorizontal: 30, marginTop: 20}}>
           <Button
             style={styles.addButton}
-            color="skyblue"
-            onPress={() => navigation.navigate('Home')}
+            color="#01b7a9"
+            onPress={() => handleSignup()}
             title="Sign Up"
           />
 
@@ -107,12 +159,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'skyblue',
+    backgroundColor: '#9ee2de',
     paddingHorizontal: 5,
   },
   card: {
     borderRadius: 15,
-    borderColor: 'skyblue',
+    borderColor: '#9ee2de',
     borderWidth: 2,
     paddingBottom: 40,
     backgroundColor: 'white',
@@ -121,9 +173,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     marginBottom: 50,
-    color: 'gray',
+    fontFamily: 'AbrilFatface-Regular',
+    color: '#01b7a9',
     fontWeight: '500',
-    borderBottomColor: 'skyblue',
+    borderBottomColor: '#01b7a9',
     borderBottomWidth: 4,
     paddingVertical: 20,
   },

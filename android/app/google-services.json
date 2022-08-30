@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "705371774455",
+    "project_id": "trapp-8f869",
+    "storage_bucket": "trapp-8f869.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705371774455:android:c541d6900d137c5eaba2f2",
+        "android_client_info": {
+          "package_name": "com.trapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705371774455-9jjep86vprb2800lk495ap3ll4q6iitn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP0N1KcU0jZ4Q6S47aWEKBZlw3gAJUIpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705371774455-9jjep86vprb2800lk495ap3ll4q6iitn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

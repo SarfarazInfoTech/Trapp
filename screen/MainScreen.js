@@ -11,13 +11,13 @@ function MainScreen({navigation}) {
         justifyContent: 'center',
         backgroundColor: 'white',
       }}>
-      <Text style={{color: 'green', fontSize: 19, fontWeight: '500'}}>
+      <Text style={{color: '#01b7a9', fontSize: 19, fontWeight: '500'}}>
         Trapp Hai Na...
       </Text>
       <View
         style={{
           width: 160,
-          borderBottomColor: 'green',
+          borderBottomColor: '#01b7a9',
           borderBottomWidth: 2,
           marginVertical: 5,
         }}></View>
@@ -35,27 +35,27 @@ function MainScreen({navigation}) {
               height: 150,
               borderRadius: 10,
               marginVertical: 10,
-              backgroundColor: 'skyblue',
+              backgroundColor: '#9be2dd',
             }}
           />
           <Text
             style={{
-              color: 'green',
+              color: 'darkgreen',
               fontSize: 15,
               fontWeight: '500',
               textAlign: 'center',
               marginVertical: 20,
             }}>
-            Teacher Login
+            Teachers Apps
           </Text>
 
           <Button
             title="Login"
-            color="green"
+            color="#01b7a9"
             onPress={() => navigation.navigate('TLogIn')}
           />
         </View>
-        <View style={{flexDirection: 'column', marginHorizontal: 10}}>
+        {/* <View style={{flexDirection: 'column', marginHorizontal: 10}}>
           <Image
             source={{
               uri: recruiterLogo,
@@ -65,26 +65,26 @@ function MainScreen({navigation}) {
               height: 150,
               borderRadius: 10,
               marginVertical: 10,
-              backgroundColor: 'skyblue',
+              backgroundColor: '#9be2dd',
             }}
           />
           <Text
             style={{
-              color: 'green',
+              color: 'darkgreen',
               fontSize: 15,
               fontWeight: '500',
               textAlign: 'center',
               marginVertical: 20,
             }}>
-            Recruiter Login
+            Recruiter
           </Text>
 
           <Button
             title="Login"
-            color="green"
+            color="#01b7a9"
             onPress={() => navigation.navigate('RLogIn')}
           />
-        </View>
+        </View> */}
       </View>
     </View>
   );

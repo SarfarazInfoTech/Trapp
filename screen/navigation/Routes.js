@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Button, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -11,50 +11,22 @@ import TLogIn from '../teacher/LogIn';
 import TSignUp from '../teacher/SignUp';
 import Home from '../teacher/Home';
 import Account from '../teacher/Account';
+import Dashboard from '../teacher/Dashboard';
+import Auth from '@react-native-firebase/auth';
+import SplashScreen from '../SplashScreen';
+import ImageUpload from '../teacher/ImageUpload';
 
 const Stack = createNativeStackNavigator();
-
-function Dashboard() {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Dashboard Screen</Text>
-      <View
-        style={{
-          shadowColor: 'gray',
-          shadowOffset: {width: 0, height: 1},
-          shadowOpacity: 0.8,
-          shadowRadius: 2,
-          width: '90%',
-        }}>
-        <View
-          style={{
-            borderRadius: 10,
-            overflow: 'hidden',
-            borderColor: 'white',
-            borderWidth: 0.3,
-            backgroundColor: 'white',
-            elevation: 5,
-            marginVertical: 10,
-          }}>
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: 18,
-              fontWeight: '500',
-              paddingVertical: 10,
-            }}>
-            Welcome to Trapp..{' '}
-          </Text>
-        </View>
-      </View>
-    </View>
-  );
-}
-
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MainScreen">
+      <Stack.Navigator>
+        <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+          options={{headerShown: false}}
+        />
+
         <Stack.Screen
           name="MainScreen"
           component={MainScreen}
@@ -68,30 +40,19 @@ export default function Routes() {
             headerShown: false,
           }}
         />
+
         <Stack.Screen
           name="TLogIn"
           component={TLogIn}
           options={{headerShown: false}}
         />
+
         <Stack.Screen
           name="TSignUp"
           component={TSignUp}
           options={{headerShown: false}}
         />
-        <Stack.Screen
-          name="Dashboard"
-          component={Dashboard}
-          options={{
-            title: 'Welcome',
-            headerTitleStyle: {
-              color: 'white',
-            },
-            headerStyle: {
-              backgroundColor: 'darkorange',
-            },
-            headerBackVisible: false,
-          }}
-        />
+
         <Stack.Screen
           name="Home"
           component={Home}
@@ -106,6 +67,27 @@ export default function Routes() {
             },
             headerBackVisible: false,
           }}
+        />
+
+        <Stack.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{
+            title: 'Welcome',
+            headerTitleStyle: {
+              color: 'white',
+            },
+            headerStyle: {
+              backgroundColor: '#01b7a9',
+            },
+            headerBackVisible: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="Image Upload"
+          component={ImageUpload}
+          options={{headerShown: true}}
         />
 
         {/* Recruiter */}

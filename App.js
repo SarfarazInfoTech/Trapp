@@ -15,9 +15,8 @@ const App = () => {
   return (
     <View style={styles.container}>
       <StatusBar
-        backgroundColor="skyblue"
-        color="black"
-        barStyle="dark-content"
+        backgroundColor="#01b7a9"
+        barStyle="light-content"
         showHideTransition="slide"
       />
 

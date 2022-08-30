@@ -6,11 +6,66 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
+import {StackActions} from '@react-navigation/native';
 
 const TLogIn = ({navigation}) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState();
+
+  const handleLogin = async () => {
+    try {
+      if (!email && !password) {
+        alert('Requred Email & Password!');
+      } else if (!email) {
+        alert('Requred Email !');
+      } else if (!password) {
+        alert('Requred Password !');
+      } else {
+        const user = await auth().signInWithEmailAndPassword(email, password);
+        if (user.user.emailVerified) {
+          navigation.dispatch(StackActions.replace('Home'));
+        } else {
+          const reSend = () => {
+            auth().currentUser.sendEmailVerification();
+            auth().signOut();
+          };
+
+          Alert.alert(
+            'Please verify your email',
+            `Check out your Inbox and click email verification link.`,
+            [
+              {
+                text: 'Resend link',
+                onPress: await reSend(),
+              },
+              {
+                text: 'Ok',
+                onPress: () => console.log('email verification link'),
+              },
+            ],
+          );
+        }
+        
+        // navigation.navigate('TLogIn');
+        // setMessage('');
+        // console.log(isUserLogin);
+        // navigation.navigate('Dashboard', {
+        //   email: isUserLogin.user.email,
+        //   uid: isUserLogin.user.uid,
+        // });
+      }
+    } catch (err) {
+      setMessage(err.message);
+      Alert.alert('', `${err.message}`, [
+        {text: 'OK', onPress: () => console.log('Login Error', err)},
+      ]);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -21,10 +76,8 @@ const TLogIn = ({navigation}) => {
             style={styles.inputBox}
             placeholder="Enter Your Email"
             value={email}
-            onPressIn={() => {
-              console.log(email);
-            }}
             onChangeText={value => setEmail(value)}
+            maxLength={40}
           />
         </View>
         <View style={{marginVertical: 15}}>
@@ -34,13 +87,15 @@ const TLogIn = ({navigation}) => {
             placeholder="Enter Your Password"
             value={password}
             onChangeText={value => setPassword(value)}
+            secureTextEntry={true}
+            maxLength={8}
           />
         </View>
         <View style={{marginHorizontal: 30, marginTop: 20}}>
           <Button
             style={styles.addButton}
-            color="skyblue"
-            onPress={() => navigation.navigate('Dashboard')}
+            color="#01b7a9"
+            onPress={() => handleLogin()}
             title="Login"
           />
 
@@ -81,12 +136,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'skyblue',
+    backgroundColor: '#9ee2de',
     paddingHorizontal: 5,
   },
   card: {
     borderRadius: 15,
-    borderColor: 'skyblue',
+    borderColor: '#9ee2de',
     borderWidth: 2,
     paddingBottom: 40,
     backgroundColor: 'white',
@@ -94,10 +149,11 @@ const styles = StyleSheet.create({
   heading: {
     textAlign: 'center',
     fontSize: 20,
+    fontFamily: 'AbrilFatface-Regular',
     marginBottom: 50,
-    color: 'gray',
+    color: '#01b7a9',
     fontWeight: '500',
-    borderBottomColor: 'skyblue',
+    borderBottomColor: '#01b7a9',
     borderBottomWidth: 4,
     paddingVertical: 20,
   },
