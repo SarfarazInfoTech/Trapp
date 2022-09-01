@@ -46,6 +46,40 @@ function Dashboard({navigation}) {
 
       {/* <Text>Email : {Auth().currentUser.email}</Text> */}
       {/* <Text>User : {Auth().currentUser.uid}</Text> */}
+
+
+      <View style={{width: '100%', height: 150}}>
+          <Image
+            source={{
+              uri: teacherImage,
+            }}
+            style={{
+              width: '100%',
+              height: 215,
+              backgroundColor: 'white',
+            }}
+          />
+        </View>
+
+        <View
+          style={{
+            borderColor: 'gray',
+            backgroundColor: 'white',
+            borderRadius: 5,
+            margin: 15,
+            alignSelf: 'flex-end',
+            paddingHorizontal: 10,
+            width: '70%',
+            shadowColor: 'black',
+            shadowOffset: {width: 0, height: 1},
+            shadowOpacity: 0.8,
+            shadowRadius: 2,
+          }}>
+          <Text style={{fontSize: 18, color: 'darkgreen'}}>
+            {Data ? `Hey, ${Data.name} your Age is ${Data.age}` : 'Loading...'}
+            {Data ? Data.subject.map(list => ` ${list} `) : ""}
+          </Text>
+        </View>
       <View
         style={{
           shadowColor: 'gray',

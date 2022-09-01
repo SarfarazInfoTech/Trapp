@@ -7,16 +7,19 @@ import {
   Button,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {StackActions} from '@react-navigation/native';
 
 const TLogIn = ({navigation}) => {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState();
 
   const handleLogin = async () => {
+    setLoading(true);
     try {
       if (!email && !password) {
         alert('Requred Email & Password!');
@@ -49,7 +52,7 @@ const TLogIn = ({navigation}) => {
             ],
           );
         }
-        
+
         // navigation.navigate('TLogIn');
         // setMessage('');
         // console.log(isUserLogin);
@@ -63,72 +66,95 @@ const TLogIn = ({navigation}) => {
       Alert.alert('', `${err.message}`, [
         {text: 'OK', onPress: () => console.log('Login Error', err)},
       ]);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.card}>
-        <Text style={styles.heading}>Teacher Login</Text>
-        <View style={{marginVertical: 15}}>
-          <Text style={styles.lable}>Email</Text>
-          <TextInput
-            style={styles.inputBox}
-            placeholder="Enter Your Email"
-            value={email}
-            onChangeText={value => setEmail(value)}
-            maxLength={40}
-          />
-        </View>
-        <View style={{marginVertical: 15}}>
-          <Text style={styles.lable}>Password</Text>
-          <TextInput
-            style={styles.inputBox}
-            placeholder="Enter Your Password"
-            value={password}
-            onChangeText={value => setPassword(value)}
-            secureTextEntry={true}
-            maxLength={8}
-          />
-        </View>
-        <View style={{marginHorizontal: 30, marginTop: 20}}>
-          <Button
-            style={styles.addButton}
+    <>
+      {loading ? (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignSelf: 'center',
+            marginTop: 30,
+          }}>
+          <ActivityIndicator
+            size="large"
             color="#01b7a9"
-            onPress={() => handleLogin()}
-            title="Login"
+            visible={loading}
+            textContent={'Loading...'}
+            textStyle={styles.spinnerTextStyle}
           />
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <View style={styles.card}>
+            <Text style={styles.heading}>Teacher Login</Text>
+            <View style={{marginVertical: 15}}>
+              <Text style={styles.lable}>Email</Text>
+              <TextInput
+                style={styles.inputBox}
+                placeholder="Enter Your Email"
+                value={email}
+                onChangeText={value => setEmail(value)}
+                maxLength={40}
+              />
+            </View>
+            <View style={{marginVertical: 15}}>
+              <Text style={styles.lable}>Password</Text>
+              <TextInput
+                style={styles.inputBox}
+                placeholder="Enter Your Password"
+                value={password}
+                onChangeText={value => setPassword(value)}
+                secureTextEntry={true}
+                maxLength={8}
+              />
+            </View>
+            <View style={{marginHorizontal: 30, marginTop: 20}}>
+              <Button
+                style={styles.addButton}
+                color="#01b7a9"
+                onPress={() => handleLogin()}
+                title="Login"
+              />
 
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              marginTop: 10,
-            }}>
-            <Text
-              style={{
-                color: 'gray',
-                fontSize: 13,
-                fontWeight: '500',
-                margin: 5,
-              }}>
-              New User ?
-            </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('TSignUp')}>
-              <Text
+              <View
                 style={{
-                  color: 'orange',
-                  fontSize: 14,
-                  fontWeight: '500',
-                  margin: 5,
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                  marginTop: 10,
                 }}>
-                SignUp
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={{
+                    color: 'gray',
+                    fontSize: 13,
+                    fontWeight: '500',
+                    margin: 5,
+                  }}>
+                  New User ?
+                </Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('TSignUp')}>
+                  <Text
+                    style={{
+                      color: 'orange',
+                      fontSize: 14,
+                      fontWeight: '500',
+                      margin: 5,
+                    }}>
+                    SignUp
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </View>
-      </View>
-    </View>
+      )}
+    </>
   );
 };
 

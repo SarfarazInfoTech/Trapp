@@ -15,6 +15,8 @@ import Dashboard from '../teacher/Dashboard';
 import Auth from '@react-native-firebase/auth';
 import SplashScreen from '../SplashScreen';
 import ImageUpload from '../teacher/ImageUpload';
+import Profile from '../teacher/Profile';
+import Documents from '../teacher/Documents';
 
 const Stack = createNativeStackNavigator();
 export default function Routes() {
@@ -85,7 +87,19 @@ export default function Routes() {
         />
 
         <Stack.Screen
-          name="Image Upload"
+          name="My Profile"
+          component={Profile}
+          options={{headerShown: true}}
+        />
+
+        <Stack.Screen
+          name="My Documents"
+          component={Documents}
+          options={{headerShown: true}}
+        />
+
+        <Stack.Screen
+          name="Documents Upload"
           component={ImageUpload}
           options={{headerShown: true}}
         />

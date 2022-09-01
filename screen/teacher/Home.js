@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {teacherImage, teacherLogo, pic, logout} from '../data/data.json';
 import firestore from '@react-native-firebase/firestore';
-import { StackActions } from '@react-navigation/native';
+import {StackActions} from '@react-navigation/native';
 import Auth from '@react-native-firebase/auth';
 
 const Home = ({navigation}) => {
@@ -19,11 +19,9 @@ const Home = ({navigation}) => {
   useEffect(() => {
     const getDatabase = async () => {
       try {
-        const data = await firestore()
-          .collection('Trapp')
-          .doc('HNQfs7zWCJJ4ADr5lVfJ')
-          .get();
-        console.log(data._data.name, data._data.age, 'ki hai');
+        const user = await Auth().currentUser.email;
+        const data = await firestore().collection('users').doc(`${user}`).get();
+        // console.log(data._data.name, data._data.age, 'ki hai');
         setData(data._data);
       } catch (err) {
         console.log(err);
@@ -36,7 +34,12 @@ const Home = ({navigation}) => {
   return (
     <SafeAreaView>
       <View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-evenly', backgroundColor: '#01b7a9'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            backgroundColor: '#01b7a9',
+          }}>
           <View
             style={{
               shadowColor: 'gray',
@@ -63,7 +66,7 @@ const Home = ({navigation}) => {
                   fontWeight: '500',
                   paddingVertical: 5,
                 }}>
-                Welcome to Trapp..
+                Welcome {Data.name}
               </Text>
             </View>
           </View>
@@ -84,7 +87,7 @@ const Home = ({navigation}) => {
 
         {/*  */}
 
-        <View style={{width: '100%', height: 150}}>
+        {/* <View style={{width: '100%', height: 150}}>
           <Image
             source={{
               uri: teacherImage,
@@ -115,44 +118,79 @@ const Home = ({navigation}) => {
             {Data ? `Hey, ${Data.name} your Age is ${Data.age}` : 'Loading...'}
             {Data ? Data.subject.map(list => ` ${list} `) : ""}
           </Text>
-        </View>
+        </View> */}
         <View
           style={{
             flexDirection: 'row',
             flexWrap: 'wrap',
             justifyContent: 'space-evenly',
           }}>
-          {pic.map(({profile, index, route}) => (
-              <TouchableOpacity
-                onPress={() => navigation.navigate(`${route}`)}
-                activeOpacity={false}
-                style={styles.shadowCard}
-                key={index}>
-                <View style={styles.card}>
-                  <Image
-                    source={{
-                      uri: profile,
-                    }}
-                    style={{
-                      width: 150,
-                      height: 135,
-                      borderRadius: 10,
-                      // backgroundColor: 'skyblue',
-                    }}
-                  />
-                  <Text
-                    style={{
-                      textAlign: 'center',
-                      color: 'black',
-                      fontSize: 16,
-                      fontWeight: '500',
-                      marginVertical: 5,
-                    }}>
-                    Profile
-                  </Text>
-                </View>
-              </TouchableOpacity>
+          {pic.map(({icon, name, index, route}) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate(`${route}`)}
+              activeOpacity={false}
+              style={styles.shadowCard}
+              key={index}>
+              <View style={styles.card}>
+                <Image
+                  source={{
+                    uri: icon,
+                  }}
+                  style={{
+                    width: 150,
+                    height: 135,
+                    borderRadius: 10,
+                    // backgroundColor: 'skyblue',
+                  }}
+                />
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    color: 'black',
+                    fontSize: 16,
+                    fontWeight: '500',
+                    marginVertical: 5,
+                  }}>
+                  {name}
+                </Text>
+              </View>
+            </TouchableOpacity>
           ))}
+        </View>
+      </View>
+
+      <View
+        style={{
+          zIndex: 9999,
+          alignSelf: 'center',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'row',
+          top: '70%',
+          shadowColor: 'gray',
+          shadowOffset: {width: 0, height: 1},
+          shadowOpacity: 0.8,
+          shadowRadius: 2,
+          marginVertical: 20,
+        }}>
+        <View
+          style={{
+            borderRadius: 3,
+            overflow: 'hidden',
+            borderColor: 'darkgreen',
+            borderWidth: 0.3,
+            backgroundColor: 'white',
+            elevation: 5,
+            marginVertical: 10,
+          width: '80%',
+          height: 40,
+          backgroundColor: 'green',
+          alignSelf: 'center',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'row',
+          }}>
+          <Text style={{color: 'white', fontSize: 17}}>Status : Approved</Text>
         </View>
       </View>
     </SafeAreaView>

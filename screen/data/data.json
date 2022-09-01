@@ -7,26 +7,32 @@
 
   "teacherImage": "https://th.bing.com/th/id/R.131468b046e41a6679392dfd9c691b81?rik=f7XWz%2bDiGnfBIw&riu=http%3a%2f%2fclipart-library.com%2fnew_gallery%2f210-2105587_student-education-welcome-blackboard-with-teacher-clipart.png&ehk=tOLCPw8PKIOgUVeJa6Kj6Tp1V8cgxlv6J%2fqQVU4gZvI%3d&risl=&pid=ImgRaw&r=0",
 
+  "profilePic": "https://www.snehagroup.in/wp-content/uploads/2021/07/balnk-profile.png",
+
   "pic": [
     {
-      "index" : "1",
-      "route": "Image Upload",
-      "profile": "https://cdn2.iconfinder.com/data/icons/education-633/100/math-teacher-5-education-school-teacher-instructor-classroom-math-desk-board-whiteboard-male-512.png"
+      "index": "1",
+      "route": "Account",
+      "icon": "https://www.kindpng.com/picc/m/690-6904538_men-profile-icon-png-image-free-download-searchpng.png",
+      "name": "Account"
     },
     {
-      "index" : "2",
-      "route": "",
-      "profile": "https://png.pngtree.com/png-clipart/20190120/ourlarge/pngtree-man-wearing-glasses-teachers-day-math-teacher-class-png-image_502937.jpg"
+      "index": "2",
+      "route": "Documents Upload",
+      "icon": "https://www.prudential.com.my/export/sites/prudential-pamb/en/.galleries/images/form-upload-red-98x98.png",
+      "name": "Documents"
     },
     {
-      "index" : "3",
+      "index": "3",
       "route": "",
-      "profile": "https://i.pinimg.com/originals/24/74/8f/24748f4c6917e60051498d38e9047c3a.jpg"
+      "icon": "https://cdn2.vectorstock.com/i/thumb-large/68/26/graduate-student-icon-rounded-squares-button-vector-4526826.jpg",
+      "name": "Academy"
     },
     {
-      "index" : "4",
+      "index": "4",
       "route": "",
-      "profile": "https://www.seekpng.com/png/detail/211-2112643_student-teacher-learning-addition-classroom-primary-school-teacher.png"
+      "icon": "https://media.istockphoto.com/vectors/career-job-success-icon-design-vector-id1257033098?k=20&m=1257033098&s=170667a&w=0&h=K4Kqa-07K_l9aIomFu4cMeKyu04VylMKqWcO8H6DhMc=",
+      "name": "Career"
     }
   ],
 
