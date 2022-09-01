@@ -9,7 +9,7 @@ export default function SplashScreen({navigation}) {
     setTimeout(async () => {
       const unSubscribe = await Auth().onAuthStateChanged(user => {
         const routeName = user !== null ? 'Home' : 'MainScreen';
-        unSubscribe();
+        // unSubscribe();
         navigation.dispatch(StackActions.replace(routeName));
       });
     }, 2000);

@@ -47,6 +47,7 @@ const TSignUp = ({navigation}) => {
           email: email,
           mobile: phoneNumber,
           password: password,
+          createdAt: firestore.Timestamp.fromDate(new Date()),
         };
 
         await firestore()

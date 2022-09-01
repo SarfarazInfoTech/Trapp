@@ -159,40 +159,54 @@ const Home = ({navigation}) => {
         </View>
       </View>
 
-      <View
-        style={{
-          zIndex: 9999,
-          alignSelf: 'center',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'row',
-          top: '70%',
-          shadowColor: 'gray',
-          shadowOffset: {width: 0, height: 1},
-          shadowOpacity: 0.8,
-          shadowRadius: 2,
-          marginVertical: 20,
-        }}>
+      {Data.status ? (
         <View
           style={{
-            borderRadius: 3,
-            overflow: 'hidden',
-            borderColor: 'darkgreen',
-            borderWidth: 0.3,
-            backgroundColor: 'white',
-            elevation: 5,
-            marginVertical: 10,
-          width: '80%',
-          height: 40,
-          backgroundColor: 'green',
-          alignSelf: 'center',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'row',
+            position: 'absolute',
+            alignSelf: 'center',
+            bottom: -140,
+            zIndex: 5,
           }}>
-          <Text style={{color: 'white', fontSize: 17}}>Status : Approved</Text>
+          <View
+            style={{
+              borderRadius: 5,
+              elevation: 5,
+              height: 40,
+              width: '100%',
+              overflow: 'hidden',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              backgroundColor:
+                Data.status === 'approved'
+                  ? 'green'
+                  : Data.status === 'rejected'
+                  ? 'gray'
+                  : 'orange',
+            }}>
+            <Text
+              style={{
+                paddingRight: 20,
+                fontWeight: '500',
+                color: 'white',
+                fontSize: 17,
+              }}>
+              Profile status {Data.status}...
+            </Text>
+            <Image
+              style={{width: 35, height: 35}}
+              source={{
+                uri:
+                  Data.status === 'approved'
+                    ? 'https://cdn-icons-png.flaticon.com/512/4157/4157035.png'
+                    : Data.status === 'rejected'
+                    ? 'https://cdn-icons-png.flaticon.com/512/4381/4381694.png'
+                    : 'https://cdn4.iconfinder.com/data/icons/design-thinking-1-flat-style/468/Layer55-512.png',
+              }}
+            />
+          </View>
         </View>
-      </View>
+      ) : null}
     </SafeAreaView>
   );
 };

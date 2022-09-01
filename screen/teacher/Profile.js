@@ -2,8 +2,9 @@ import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import Auth from '@react-native-firebase/auth';
+import {Button, FAB} from 'react-native-paper';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [Data, setData] = useState('');
   useEffect(() => {
@@ -42,6 +43,12 @@ const Profile = () => {
         </View>
       ) : (
         <View style={{flex: 1, backgroundColor: 'white'}}>
+          <Button
+            style={styles.fab}
+            color={'white'}
+            onPress={() => navigation.navigate('Edit Profile')}>
+            Edit Profile
+          </Button>
           <Text
             style={{
               color: 'black',
@@ -65,7 +72,11 @@ const Profile = () => {
             <Text style={styles.valueInput}>+91 {Data.mobile}</Text>
           </View>
           <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>Status :</Text>
+            <Text style={styles.fieldInput}>Gender :</Text>
+            <Text style={styles.valueInput}>{Data.gender}</Text>
+          </View>
+          <View style={styles.hedName}>
+            <Text style={styles.fieldInput}>Account :</Text>
             <Text style={styles.valueInput}>{Data.status}</Text>
           </View>
         </View>
@@ -93,8 +104,17 @@ const styles = StyleSheet.create({
   fieldInput: {
     fontWeight: '500',
     color: 'black',
-    fontSize: 18,
+    fontSize: 17,
     flex: 2,
+  },
+  fab: {
+    position: 'absolute',
+    marginHorizontal: 5,
+    padding: 3,
+    right: 10,
+    bottom: 20,
+    zIndex: 5,
+    backgroundColor: '#01b7a9',
   },
 });
 export default Profile;
