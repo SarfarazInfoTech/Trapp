@@ -84,6 +84,7 @@ const EditProfile = ({navigation}) => {
       // navigation.navigate('Home');
     } catch (err) {
       console.log('Error upload', err);
+      alert("Please upload a profile picture with your clear face then update !")
     } finally {
       setLoading(false);
     }
