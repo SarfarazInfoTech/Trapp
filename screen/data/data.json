@@ -9,32 +9,44 @@
 
   "profilePic": "https://www.snehagroup.in/wp-content/uploads/2021/07/balnk-profile.png",
 
+  "dashboardIcon": "https://rfp360.com/wp-content/uploads/2020/08/Dashboards-Sales-59-1.png",
+
+  "notesIcon": "https://www.pngitem.com/pimgs/m/661-6610555_-note-icon-png-clipart-png-download-transparent.png",
+
+  "approvedIcon": "https://cdn-icons-png.flaticon.com/512/4157/4157035.png",
+
+  "rejectedIcon": "https://cdn-icons-png.flaticon.com/512/4381/4381694.png",
+
+  "pendingIcon": "https://cdn4.iconfinder.com/data/icons/design-thinking-1-flat-style/468/Layer55-512.png",
+
+  "altDoc": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHVz7_IhR0cw10ecbj5NpOnzC4qynH2ynHTVLiFkTVNzudN8t9YdiFCv1KQJ_AJUK4ToU&usqp=CAU",
+
   "pic": [
     {
       "index": "1",
       "route": "Account",
-      "icon": "https://www.kindpng.com/picc/m/690-6904538_men-profile-icon-png-image-free-download-searchpng.png",
+      "icon": "https://firebasestorage.googleapis.com/v0/b/trapp-8f869.appspot.com/o/icon%2Faccounts.png?alt=media&token=0e44f56f-67b4-4cef-b0a3-00bdad873a02",
       "name": "Account"
     },
     {
       "index": "2",
       "route": "Documents Upload",
-      "icon": "https://www.prudential.com.my/export/sites/prudential-pamb/en/.galleries/images/form-upload-red-98x98.png",
+      "icon": "https://firebasestorage.googleapis.com/v0/b/trapp-8f869.appspot.com/o/icon%2Fdocuments.png?alt=media&token=0df58900-21a7-4641-9bd8-c55b59dff669",
       "name": "Documents"
     },
     {
       "index": "3",
-      "route": "",
-      "icon": "https://cdn2.vectorstock.com/i/thumb-large/68/26/graduate-student-icon-rounded-squares-button-vector-4526826.jpg",
-      "name": "Academy"
+      "route": "Academic",
+      "icon": "https://firebasestorage.googleapis.com/v0/b/trapp-8f869.appspot.com/o/icon%2Facademic.png?alt=media&token=76b0d2b4-7e84-4211-aff3-fbb65884ae50",
+      "name": "Academic"
     },
     {
       "index": "4",
-      "route": "",
-      "icon": "https://media.istockphoto.com/vectors/career-job-success-icon-design-vector-id1257033098?k=20&m=1257033098&s=170667a&w=0&h=K4Kqa-07K_l9aIomFu4cMeKyu04VylMKqWcO8H6DhMc=",
+      "route": "Career",
+      "icon": "https://firebasestorage.googleapis.com/v0/b/trapp-8f869.appspot.com/o/icon%2Fcareer.png?alt=media&token=b667530d-00d0-43a8-850d-6a397b270cfd",
       "name": "Career"
     }
   ],
 
-  "logout": "https://apprecs.org/gp/images/app-icons/300/a5/jp.co.kixx.tool.offwidget.jpg"
+  "logout": "https://apprecs.org/gp/images/app-icons/300/a5/jp.co.kixx.tool.offwidget.jpg"  
 }

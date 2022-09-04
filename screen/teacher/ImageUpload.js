@@ -13,6 +13,7 @@ import DocumentPicker from 'react-native-document-picker';
 import storage from '@react-native-firebase/storage';
 import Auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import database from '@react-native-firebase/database';
 
 const ImageUpload = ({navigation}) => {
   const [ImageData, setImageData] = useState(null);
@@ -41,6 +42,7 @@ const ImageUpload = ({navigation}) => {
   const uploadImage = async () => {
     setLoading(true);
     try {
+      const UID = await Auth().currentUser.uid;
       const document = await Auth().currentUser.email;
       const responce = storage().ref(`/Documents/${document}/${docuName}`);
       const put = await responce.putFile(ImageData.fileCopyUri);
@@ -48,11 +50,12 @@ const ImageUpload = ({navigation}) => {
       const url = await responce.getDownloadURL();
       setimgDownloadUrl(url);
 
-      const docuData = {
-        name: docuName,
+      await database().ref(`Documents/${UID}`).push({
+        documentName: docuName,
         documentURL: url,
-      };
-      await firestore().collection('Documents').doc(document).set(docuData);
+        status: 'pending',
+      })
+      
       navigation.navigate('Home');
       Alert.alert(
         'Uploded Successfully',
@@ -143,7 +146,7 @@ const ImageUpload = ({navigation}) => {
             source={{uri: imgDownloadUrl}}
             style={{width: '95%', height: '40%', margin: 10}}
           /> */}
-          <Text style={{margin: 10}}>{imgDownloadUrl}</Text>
+          {/* <Text style={{margin: 10}}>{imgDownloadUrl}</Text> */}
         </View>
       )}
     </>

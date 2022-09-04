@@ -11,7 +11,17 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
-import {teacherImage, teacherLogo, pic, logout} from '../data/data.json';
+import {
+  teacherImage,
+  teacherLogo,
+  pic,
+  logout,
+  dashboardIcon,
+  notesIcon,
+  approvedIcon,
+  rejectedIcon,
+  pendingIcon,
+} from '../data/data.json';
 import firestore from '@react-native-firebase/firestore';
 import {StackActions} from '@react-navigation/native';
 import Auth from '@react-native-firebase/auth';
@@ -23,14 +33,13 @@ const Home = ({navigation}) => {
   const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
-  const onRefresh = useCallback( async () => {
+  const onRefresh = useCallback(async () => {
     await setLoading(true);
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
     wait(2000).then(() => setLoading(false));
-   await navigation.navigate('Home');
-  },
-   []);
+    await navigation.navigate('Home');
+  }, []);
 
   useEffect(() => {
     const getDatabase = async () => {
@@ -45,7 +54,7 @@ const Home = ({navigation}) => {
         getDatabase();
       }
     };
-    onRefresh()
+    onRefresh();
     getDatabase();
   }, []);
 
@@ -68,7 +77,56 @@ const Home = ({navigation}) => {
           />
         </View>
       ) : (
-        <SafeAreaView>
+        <SafeAreaView style={{flex: 1}}>
+          {Data.status ? (
+            <View
+              style={{
+                alignSelf: 'center',
+                width: '100%',
+                position: 'absolute',
+                bottom: 0,
+                zIndex: 5,
+              }}>
+              <View
+                style={{
+                  borderRadius: 5,
+                  elevation: 5,
+                  height: 40,
+                  width: '100%',
+                  overflow: 'hidden',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'row',
+                  backgroundColor:
+                    Data.status === 'approved'
+                      ? 'green'
+                      : Data.status === 'rejected'
+                      ? 'gray'
+                      : 'orange',
+                }}>
+                <Text
+                  style={{
+                    paddingRight: 20,
+                    fontWeight: '500',
+                    color: 'white',
+                    fontSize: 17,
+                  }}>
+                  Profile status {Data.status}...
+                </Text>
+                <Image
+                  style={{width: 35, height: 35}}
+                  source={{
+                    uri:
+                      Data.status === 'approved'
+                        ? approvedIcon
+                        : Data.status === 'rejected'
+                        ? rejectedIcon
+                        : pendingIcon,
+                  }}
+                />
+              </View>
+            </View>
+          ) : null}
           <View>
             <View
               style={{
@@ -122,39 +180,59 @@ const Home = ({navigation}) => {
             </View>
 
             {/* <View style={{width: '100%', height: 150}}>
-          <Image
-            source={{
-              uri: teacherImage,
-            }}
-            style={{
-              width: '100%',
-              height: 215,
-              backgroundColor: 'white',
-            }}
-          />
-        </View>
+              <Image
+                source={{
+                  uri: teacherImage,
+                }}
+                style={{
+                  width: '100%',
+                  height: 215,
+                  backgroundColor: 'white',
+                }}
+              />
+              </View>
+              <View
+              style={{
+                borderColor: 'gray',
+                backgroundColor: 'white',
+                borderRadius: 5,
+                margin: 15,
+                alignSelf: 'flex-end',
+                paddingHorizontal: 10,
+                width: '70%',
+                shadowColor: 'black',
+                shadowOffset: {width: 0, height: 1},
+                shadowOpacity: 0.8,
+                shadowRadius: 2,
+              }}>
+              <Text style={{fontSize: 18, color: 'darkgreen'}}>
+                {Data ? `Hey, ${Data.name} your Age is ${Data.age}` : 'Loading...'}
+                {Data ? Data.subject.map(list => ` ${list} `) : ""}
+              </Text>
+            </View> */}
 
-        <View
-          style={{
-            borderColor: 'gray',
-            backgroundColor: 'white',
-            borderRadius: 5,
-            margin: 15,
-            alignSelf: 'flex-end',
-            paddingHorizontal: 10,
-            width: '70%',
-            shadowColor: 'black',
-            shadowOffset: {width: 0, height: 1},
-            shadowOpacity: 0.8,
-            shadowRadius: 2,
-          }}>
-          <Text style={{fontSize: 18, color: 'darkgreen'}}>
-            {Data ? `Hey, ${Data.name} your Age is ${Data.age}` : 'Loading...'}
-            {Data ? Data.subject.map(list => ` ${list} `) : ""}
-          </Text>
-        </View> */}
+            <View
+              style={{
+                backgroundColor: 'white',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Image
+                style={{
+                  height: 25,
+                  width: 26,
+                  margin: 10,
+                }}
+                source={{
+                  uri: dashboardIcon,
+                }}
+              />
+              <Text style={{fontSize: 16, color: '#01b7a9'}}>Dashboard</Text>
+            </View>
 
             <ScrollView
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
               refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
               }>
@@ -176,10 +254,10 @@ const Home = ({navigation}) => {
                           uri: icon,
                         }}
                         style={{
-                          width: 150,
-                          height: 135,
+                          width: 140,
+                          height: 100,
                           borderRadius: 10,
-                          // backgroundColor: 'skyblue',
+                          backgroundColor: 'white',
                         }}
                       />
                       <Text
@@ -197,56 +275,57 @@ const Home = ({navigation}) => {
                 ))}
               </View>
             </ScrollView>
-          </View>
-          {Data.status ? (
+
             <View
               style={{
-                position: 'absolute',
-                alignSelf: 'center',
-                bottom: -345,
-                zIndex: 5,
-                width: '100%',
+                backgroundColor: 'white',
+                flexDirection: 'row',
+                alignItems: 'center',
               }}>
-              <View
+              <Image
                 style={{
-                  borderRadius: 5,
-                  elevation: 5,
-                  height: 40,
-                  width: '100%',
-                  overflow: 'hidden',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexDirection: 'row',
-                  backgroundColor:
-                    Data.status === 'approved'
-                      ? 'green'
-                      : Data.status === 'rejected'
-                      ? 'gray'
-                      : 'orange',
-                }}>
-                <Text
-                  style={{
-                    paddingRight: 20,
-                    fontWeight: '500',
-                    color: 'white',
-                    fontSize: 17,
-                  }}>
-                  Profile status {Data.status}...
+                  height: 25,
+                  width: 25,
+                  margin: 10,
+                }}
+                source={{
+                  uri: notesIcon,
+                }}
+              />
+              <Text style={{fontSize: 16, color: '#01b7a9'}}>
+                Important Notes
+              </Text>
+            </View>
+            <View
+              style={[
+                styles.card,
+                {margin: 10, padding: 10, paddingBottom: 0, paddingTop: 0},
+              ]}>
+              <View style={[styles.shadowCard, {width: '100%'}]}>
+                <Text style={{color: 'darkblue'}}>
+                  1. Connecting to the development server...
                 </Text>
-                <Image
-                  style={{width: 35, height: 35}}
-                  source={{
-                    uri:
-                      Data.status === 'approved'
-                        ? 'https://cdn-icons-png.flaticon.com/512/4157/4157035.png'
-                        : Data.status === 'rejected'
-                        ? 'https://cdn-icons-png.flaticon.com/512/4381/4381694.png'
-                        : 'https://cdn4.iconfinder.com/data/icons/design-thinking-1-flat-style/468/Layer55-512.png',
-                  }}
-                />
+                <Text style={{color: 'darkblue'}}>
+                  2. Connecting to the development server...
+                </Text>
+                <Text style={{color: 'darkblue'}}>
+                  3. Connecting to the development server...
+                </Text>
+                <Text style={{color: 'darkblue'}}>
+                  4. Connecting to the development server...
+                </Text>
+                <Text style={{color: 'darkblue'}}>
+                  5. Connecting to the development server...
+                </Text>
+                <Text style={{color: 'darkblue'}}>
+                  6. Connecting to the development server...
+                </Text>
+                <Text style={{color: 'darkblue'}}>
+                  7. Connecting to the development server...
+                </Text>
               </View>
             </View>
-          ) : null}
+          </View>
         </SafeAreaView>
       )}
     </>
@@ -267,7 +346,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.8,
     shadowRadius: 2,
-    width: 150,
+    width: 140,
     marginVertical: 10,
   },
 
