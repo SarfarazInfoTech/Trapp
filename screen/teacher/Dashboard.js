@@ -30,7 +30,7 @@ function Dashboard({navigation}) {
       <Text>Dashboard Screen</Text>
       <TouchableOpacity
         onPress={async () => {
-          await Auth().signOut();
+          await Auth().currentUser.signOut();
           navigation.dispatch(StackActions.replace('MainScreen'));
         }}
         style={{
@@ -44,12 +44,12 @@ function Dashboard({navigation}) {
         <Text style={{color: 'white', textAlign: 'center'}}>Logout</Text>
       </TouchableOpacity>
 
-      {/* <Text>Email : {Auth().currentUser.email}</Text> */}
-      {/* <Text>User : {Auth().currentUser.uid}</Text> */}
+      <Text>Email : {Auth().currentUser.email}</Text>
+      <Text>User : {Auth().currentUser.uid}</Text>
 
 
       <View style={{width: '100%', height: 150}}>
-          <Image
+          {/* <Image
             source={{
               uri: teacherImage,
             }}
@@ -58,7 +58,7 @@ function Dashboard({navigation}) {
               height: 215,
               backgroundColor: 'white',
             }}
-          />
+          /> */}
         </View>
 
         <View
@@ -76,8 +76,8 @@ function Dashboard({navigation}) {
             shadowRadius: 2,
           }}>
           <Text style={{fontSize: 18, color: 'darkgreen'}}>
-            {Data ? `Hey, ${Data.name} your Age is ${Data.age}` : 'Loading...'}
-            {Data ? Data.subject.map(list => ` ${list} `) : ""}
+            {/* {Data ? `Hey, ${Data.name} your Age is ${Data.age}` : 'Loading...'} */}
+            {/* {Data ? Data.subject.map(list => ` ${list} `) : ""} */}
           </Text>
         </View>
       <View
@@ -105,7 +105,7 @@ function Dashboard({navigation}) {
               fontWeight: '500',
               paddingVertical: 10,
             }}>
-            Welcome {Data.name}
+            {/* Welcome {Data.name} */}
           </Text>
         </View>
       </View>

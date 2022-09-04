@@ -8,7 +8,16 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Avatar} from 'react-native-paper';
-import {teacherImage, teacherLogo, profilePic, logout} from '../data/data.json';
+import {
+  documentIcon,
+  uploadIcon,
+  academicIcon,
+  careerIcon,
+  logOutIcon,
+  profileIcon,
+  profilePic,
+  logout,
+} from '../data/data.json';
 import firestore from '@react-native-firebase/firestore';
 import Auth from '@react-native-firebase/auth';
 
@@ -16,39 +25,40 @@ const Account = ({navigation}) => {
   const accountdetails = [
     {
       id: '1',
-      icon: 'https://www.snehagroup.in/wp-content/uploads/2021/07/balnk-profile.png',
+      icon: profileIcon,
       name: 'My Profile',
       routes: 'My Profile',
     },
     {
       id: '2',
-      icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS-lwGYXs9JCrBG263UVZW3rL22sd3G6IZm65f3fYUn_U0hDa_XqTAYpiqzMCd6a12Tc0&usqp=CAU',
+      icon: documentIcon,
       name: 'My Documents',
       routes: 'My Documents',
     },
     {
       id: '3',
-      icon: 'https://www.prudential.com.my/export/sites/prudential-pamb/en/.galleries/images/form-upload-red-98x98.png',
+      icon: uploadIcon,
       name: 'Document Upload',
       routes: 'Documents Upload',
     },
     {
       id: '4',
-      icon: 'https://cdn2.vectorstock.com/i/thumb-large/68/26/graduate-student-icon-rounded-squares-button-vector-4526826.jpg',
-      name: 'Academy',
-      routes: 'Academy',
+      icon: academicIcon,
+      name: 'Academic',
+      routes: 'Academic',
     },
     {
       id: '5',
-      icon: 'https://i.pinimg.com/originals/43/34/65/4334653e51a39b53df44966fb06f4cf2.png',
+      icon: careerIcon,
       name: 'Career',
-      routes: '',
+      routes: 'Career',
     },
     {
       id: '6',
-      icon: 'https://cdn.iconscout.com/icon/free/png-256/logout-2477642-2061904.png',
+      icon: logOutIcon,
       name: 'Logout',
-      routes: '',
+      routes: 'MainScreen',
+      // signOut: Auth().signOut()
     },
   ];
 

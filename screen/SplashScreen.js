@@ -7,11 +7,22 @@ import {splashimage} from './data/data.json';
 export default function SplashScreen({navigation}) {
   useEffect(() => {
     setTimeout(async () => {
-      const unSubscribe = await Auth().onAuthStateChanged(user => {
-        const routeName = user !== null ? 'Home' : 'MainScreen';
-        // unSubscribe();
-        navigation.dispatch(StackActions.replace(routeName));
+      await Auth().onAuthStateChanged(function (user) {
+        if (user) {
+          const routeName = user !== null ? 'Home' : 'MainScreen';
+          navigation.dispatch(StackActions.replace(routeName));
+          // alert('User is SignIn');
+        } else {
+          navigation.navigate('MainScreen');
+          // alert('User is SignOut');
+        }
       });
+
+      // const unSubscribe = await Auth().onAuthStateChanged(user => {
+      //   const routeName = user !== null ? 'Home' : 'MainScreen';
+      //   unSubscribe();
+      //   navigation.dispatch(StackActions.replace(routeName));
+      // });
     }, 2000);
   }, []);
 

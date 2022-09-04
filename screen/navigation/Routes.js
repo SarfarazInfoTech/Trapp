@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {View, Text, Button, Image} from 'react-native';
+import {View, Text, Button, Image, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import SignUp from '../teacher/SignUp';
+import {logOutIcon} from '../data/data.json';
 import MainScreen from '../MainScreen';
-import LogIn from '../recruiter/LogIn';
 import RSignUp from '../recruiter/SignUp';
 import RLogIn from '../recruiter/LogIn';
 import TLogIn from '../teacher/LogIn';
@@ -18,12 +17,16 @@ import ImageUpload from '../teacher/ImageUpload';
 import Profile from '../teacher/Profile';
 import Documents from '../teacher/Documents';
 import EditProfile from '../teacher/EditProfile';
+import Academic from '../teacher/Academic';
+import Career from '../teacher/Career';
 
 const Stack = createNativeStackNavigator();
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+      // initialRouteName=''
+      >
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
@@ -88,6 +91,36 @@ export default function Routes() {
         />
 
         <Stack.Screen
+          name="Account"
+          component={Account}
+          options={{
+            headerShown: true,
+            headerRight: () => (
+              <TouchableOpacity onPress={() => Auth().signOut()}>
+                <Image
+                  style={{backgroundColor: 'white', height: 35, width: 35}}
+                  source={{
+                    uri: logOutIcon,
+                  }}
+                />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+
+        <Stack.Screen
+          name="Academic"
+          component={Academic}
+          options={{headerShown: true}}
+        />
+
+        <Stack.Screen
+          name="Career"
+          component={Career}
+          options={{headerShown: true}}
+        />
+
+        <Stack.Screen
           name="My Profile"
           component={Profile}
           options={{headerShown: true}}
@@ -121,11 +154,6 @@ export default function Routes() {
           name="RSignUp"
           component={RSignUp}
           options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Account"
-          component={Account}
-          options={{headerShown: true}}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -38,7 +38,7 @@ const Home = ({navigation}) => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
     wait(2000).then(() => setLoading(false));
-    await navigation.navigate('Home');
+    // await navigation.navigate('Home');
   }, []);
 
   useEffect(() => {
@@ -48,10 +48,10 @@ const Home = ({navigation}) => {
         const data = await firestore().collection('users').doc(`${user}`).get();
         setData(data._data);
       } catch (err) {
-        console.log(err);
+        console.log("Home", err);
       } finally {
         setLoading(false);
-        getDatabase();
+        // getDatabase();
       }
     };
     onRefresh();

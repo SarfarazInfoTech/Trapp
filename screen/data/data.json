@@ -21,6 +21,18 @@
 
   "altDoc": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHVz7_IhR0cw10ecbj5NpOnzC4qynH2ynHTVLiFkTVNzudN8t9YdiFCv1KQJ_AJUK4ToU&usqp=CAU",
 
+  "profileIcon": "https://www.snehagroup.in/wp-content/uploads/2021/07/balnk-profile.png",
+
+  "documentIcon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS-lwGYXs9JCrBG263UVZW3rL22sd3G6IZm65f3fYUn_U0hDa_XqTAYpiqzMCd6a12Tc0&usqp=CAU",
+
+  "uploadIcon": "https://www.prudential.com.my/export/sites/prudential-pamb/en/.galleries/images/form-upload-red-98x98.png",
+
+  "academicIcon": "https://cdn2.vectorstock.com/i/thumb-large/68/26/graduate-student-icon-rounded-squares-button-vector-4526826.jpg",
+
+  "careerIcon": "https://i.pinimg.com/originals/43/34/65/4334653e51a39b53df44966fb06f4cf2.png",
+
+  "logOutIcon": "https://cdn.iconscout.com/icon/free/png-256/logout-2477642-2061904.png",
+
   "pic": [
     {
       "index": "1",
