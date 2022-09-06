@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, Button, Image, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {logOutIcon} from '../data/data.json';
+import {logOutIcon, profileEditIcon} from '../data/data.json';
 import MainScreen from '../MainScreen';
 import RSignUp from '../recruiter/SignUp';
 import RLogIn from '../recruiter/LogIn';
@@ -24,9 +24,7 @@ const Stack = createNativeStackNavigator();
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-      // initialRouteName=''
-      >
+      <Stack.Navigator>
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
@@ -123,7 +121,26 @@ export default function Routes() {
         <Stack.Screen
           name="My Profile"
           component={Profile}
-          options={{headerShown: true}}
+          options={{
+            headerShown: true,
+
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => alert('Please click EDIT PROFILE button.')}>
+                <Image
+                  style={{
+                    backgroundColor: 'white',
+                    height: 40,
+                    width: 40,
+                    left: 10,
+                  }}
+                  source={{
+                    uri: profileEditIcon,
+                  }}
+                />
+              </TouchableOpacity>
+            ),
+          }}
         />
 
         <Stack.Screen

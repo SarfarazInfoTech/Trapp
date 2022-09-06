@@ -47,15 +47,18 @@ const Home = ({navigation}) => {
         const user = await Auth().currentUser.email;
         const data = await firestore().collection('users').doc(`${user}`).get();
         setData(data._data);
+        getDatabase();
       } catch (err) {
-        console.log("Home", err);
+        // alert('Error in Home');
+        // console.log('Error in Home', err);
+        await navigation.navigate('MainScreen');
+
       } finally {
         setLoading(false);
-        // getDatabase();
       }
     };
-    onRefresh();
     getDatabase();
+    onRefresh();
   }, []);
 
   return (
