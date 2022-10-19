@@ -31,7 +31,7 @@ const ImageUpload = ({navigation}) => {
           type: [DocumentPicker.types.images],
           copyTo: 'cachesDirectory',
         });
-        //   console.log('PicImage', responce);
+          // console.log('PicImage', responce);
         setImageData(responce);
       }
     } catch (err) {

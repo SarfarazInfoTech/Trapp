@@ -19,12 +19,19 @@ import Documents from '../teacher/Documents';
 import EditProfile from '../teacher/EditProfile';
 import Academic from '../teacher/Academic';
 import Career from '../teacher/Career';
+import OtpLogin from '../teacher/OtpLogin';
 
 const Stack = createNativeStackNavigator();
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName='OtpLogin'>
+        <Stack.Screen
+          name="OtpLogin"
+          component={OtpLogin}
+          options={{headerShown: false}}
+        />
+
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
