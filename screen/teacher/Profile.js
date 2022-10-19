@@ -2,11 +2,12 @@ import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import Auth from '@react-native-firebase/auth';
-import {Button, FAB} from 'react-native-paper';
+import {Button, TextInput, FAB} from 'react-native-paper';
 
 const Profile = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [Data, setData] = useState('');
+
   useEffect(() => {
     const getDatabase = async () => {
       try {
@@ -22,6 +23,36 @@ const Profile = ({navigation}) => {
 
     getDatabase();
   }, []);
+
+  const [user, setUser] = useState([]);
+  const [confirm, setConfirm] = useState(null);
+  const [code, setCode] = useState('');
+
+  async function verifyPhoneNumber() {
+    const phoneNumber = '+91' + Data.mobile;
+    const confirmation = await Auth().verifyPhoneNumber(phoneNumber);
+    setConfirm(confirmation);
+    console.log(confirmation);
+    alert('OTP Send please check in mobile.');
+  }
+
+  async function confirmCode() {
+    try {
+      const credential = Auth.PhoneAuthProvider.credential(
+        confirm.verificationId,
+        code,
+      );
+      let userData = await Auth().currentUser.linkWithCredential(credential);
+      setUser(userData.user);
+      console.log(userData);
+    } catch (error) {
+      if (error.code == 'auth/invalid-verification-code') {
+        alert('Invalid OTP');
+      } else {
+        alert('Mobile number not verified!');
+      }
+    }
+  }
 
   return (
     <>
@@ -65,11 +96,17 @@ const Profile = ({navigation}) => {
           </View>
           <View style={styles.hedName}>
             <Text style={styles.fieldInput}>Email :</Text>
-            <Text style={styles.valueInput}>{Data.email}</Text>
+            <Text style={[styles.valueInput, {flex: 5}]}>{Data.email}</Text>
+            {Auth().currentUser.emailVerified ? <Text style={{color: 'green', fontSize: 12}}> Verified</Text> :
+            <Text style={{color: 'red', fontSize: 12}}>Not verified</Text>}
           </View>
           <View style={styles.hedName}>
             <Text style={styles.fieldInput}>Mobile :</Text>
-            <Text style={styles.valueInput}>+91 {Data.mobile}</Text>
+            <Text style={[styles.valueInput, {flex: 5}]}>
+              +91 {Data.mobile}
+            </Text>
+            {Auth().currentUser.phoneNumber ? <Text style={{color: 'green', fontSize: 12}}> Verified</Text> :
+            <Text style={{color: 'red', fontSize: 12}}>Not verified</Text>}
           </View>
           <View style={styles.hedName}>
             <Text style={styles.fieldInput}>Gender :</Text>
@@ -79,6 +116,13 @@ const Profile = ({navigation}) => {
             <Text style={styles.fieldInput}>Account :</Text>
             <Text style={styles.valueInput}>{Data.status}</Text>
           </View>
+          <Button onPress={() => verifyPhoneNumber()}>
+            Send OTP for Mobile verification
+          </Button>
+          <TextInput value={code} onChangeText={text => setCode(text)} />
+          <Button onPress={() => confirmCode()}>
+            Confirm
+          </Button>
         </View>
       )}
     </>

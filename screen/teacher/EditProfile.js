@@ -238,6 +238,7 @@ const EditProfile = ({navigation}) => {
                     placeholder: 'gray',
                   },
                 }}
+                disabled={Auth().currentUser.phoneNumber ? true : false}
               />
 
               <RadioButton.Group

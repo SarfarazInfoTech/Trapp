@@ -25,12 +25,12 @@ const Stack = createNativeStackNavigator();
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='OtpLogin'>
-        <Stack.Screen
+      <Stack.Navigator>
+        {/* <Stack.Screen
           name="OtpLogin"
           component={OtpLogin}
           options={{headerShown: false}}
-        />
+        /> */}
 
         <Stack.Screen
           name="SplashScreen"
