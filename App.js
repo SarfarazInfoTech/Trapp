@@ -13,15 +13,16 @@ import Routes from './screen/navigation/Routes';
 const App = () => {
  
   return (
+    <>
     <View style={styles.container}>
       <StatusBar
         backgroundColor="#01b7a9"
         barStyle="light-content"
         showHideTransition="slide"
       />
-
       <Routes />
     </View>
+    </>
   );
 };
 
