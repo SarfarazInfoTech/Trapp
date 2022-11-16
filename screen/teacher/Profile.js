@@ -14,6 +14,8 @@ import Auth from '@react-native-firebase/auth';
 import {Button, TextInput, FAB} from 'react-native-paper';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import RNOtpVerify from 'react-native-otp-verify';
+import moment from 'moment';
+
 
 const Profile = ({navigation}) => {
   const [loading, setLoading] = useState(true);
@@ -161,6 +163,10 @@ const Profile = ({navigation}) => {
           <View style={styles.hedName}>
             <Text style={styles.fieldInput}>Gender :</Text>
             <Text style={styles.valueInput}>{Data.gender}</Text>
+          </View>
+          <View style={styles.hedName}>
+            <Text style={styles.fieldInput}>Birth date :</Text>
+            <Text style={styles.valueInput}>{moment(Data.dob).format('DD/MM/YYYY')} {Data.dob}</Text>
           </View>
           <View style={styles.hedName}>
             <Text style={styles.fieldInput}>Account :</Text>

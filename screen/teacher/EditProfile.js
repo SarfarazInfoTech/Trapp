@@ -7,6 +7,7 @@ import {
   Alert,
   ImageBackground,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Avatar, Button, TextInput, RadioButton} from 'react-native-paper';
@@ -15,6 +16,11 @@ import {profilePic} from '../data/data.json';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import Auth from '@react-native-firebase/auth';
+import DatePicker from 'react-native-date-picker';
+import DateTimePicker, {
+  DateTimePickerAndroid,
+} from '@react-native-community/datetimepicker';
+import moment from 'moment';
 
 const EditProfile = ({navigation}) => {
   const [loading, setLoading] = useState(false);
@@ -23,7 +29,10 @@ const EditProfile = ({navigation}) => {
   const [Data, setData] = useState('');
   const [fullImagePath, setfullImagePath] = useState('');
   const [imgDownloadUrl, setimgDownloadUrl] = useState('');
-  
+
+  // const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+
   const getUser = async () => {
     const currentUser = await Auth().currentUser.email;
     await firestore()
@@ -72,6 +81,11 @@ const EditProfile = ({navigation}) => {
           mobile: userData.mobile,
           image: url,
           gender: userData.gender,
+          aadhaar: userData.aadhaar,
+          teacherUid: userData.teacherUid,
+          age: userData.age,
+          dob: userData.dob,
+          // dob: date,
           updateAt: firestore.Timestamp.fromDate(new Date()),
         })
         .then(() => {
@@ -81,10 +95,12 @@ const EditProfile = ({navigation}) => {
             'Your profile has been updated successfully.',
           );
         });
-      // navigation.navigate('Home');
+      navigation.navigate('Home');
     } catch (err) {
       console.log('Error upload', err);
-      alert("Please upload a profile picture with your clear face then update !")
+      alert(
+        'Please upload a profile picture with your clear face then update !',
+      );
     } finally {
       setLoading(false);
     }
@@ -108,6 +124,24 @@ const EditProfile = ({navigation}) => {
     handleUpdate();
   }, []);
 
+  const [date, setDate] = useState(new Date());
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+    
+  };
+  const showMode = currentMode => {
+    DateTimePickerAndroid.open({
+      value: date,
+      onChange,
+      mode: currentMode,
+      is24Hour: false,
+    });
+  };
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
   return (
     <>
       {loading ? (
@@ -127,7 +161,7 @@ const EditProfile = ({navigation}) => {
           />
         </View>
       ) : (
-        <View>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.card}>
             {/* <Text >{imgDownloadUrl}</Text> */}
             {/* <Text >{fullImagePath}</Text> */}
@@ -189,9 +223,10 @@ const EditProfile = ({navigation}) => {
             </View>
 
             <View>
+              <Text style={{color: 'black', margin: 10}}>Name</Text>
               <TextInput
                 mode="outlined"
-                label={'Your Name'}
+                label={'Full Name'}
                 placeholder={'Enter Your Name'}
                 value={userData ? userData.name : ''}
                 onChangeText={value => setUserData({...userData, name: value})}
@@ -204,9 +239,11 @@ const EditProfile = ({navigation}) => {
                   },
                 }}
               />
+              <Text style={{color: 'black', margin: 10}}>Email</Text>
+
               <TextInput
                 mode="outlined"
-                label={'Your Email'}
+                label={'Email Address'}
                 placeholder={'Enter Your Email'}
                 value={userData ? userData.email : ''}
                 onChangeText={value => setUserData({...userData, email: value})}
@@ -220,9 +257,10 @@ const EditProfile = ({navigation}) => {
                 }}
                 disabled
               />
+              <Text style={{color: 'black', margin: 10}}>Mobile</Text>
               <TextInput
                 mode="outlined"
-                label={'Your Mobile'}
+                label={'Mobile Number'}
                 placeholder={'Enter Your Mobile no.'}
                 value={userData ? userData.mobile : ''}
                 onChangeText={value =>
@@ -241,36 +279,169 @@ const EditProfile = ({navigation}) => {
                 disabled={Auth().currentUser.phoneNumber ? true : false}
               />
 
+              <Text style={{color: 'black', margin: 10}}>Gender</Text>
               <RadioButton.Group
-                onValueChange={value => setUserData({...userData, gender: value})}
-                value={userData ? userData.gender : '' }>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginLeft: 10,
-                  }}
-                  onPress={{}}>
-                  <RadioButton value="Male" />
-                  <Text>Male</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginLeft: 10,
-                  }}
-                  onPress={{}}>
-                  <RadioButton value="Female" />
-                  <Text>Female</Text>
+                onValueChange={value =>
+                  setUserData({...userData, gender: value})
+                }
+                value={userData ? userData.gender : ''}>
+                <View style={{flexDirection: 'row'}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginLeft: 10,
+                    }}
+                    onPress={{}}>
+                    <RadioButton value="Male" />
+                    <Text>Male</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginLeft: 10,
+                    }}
+                    onPress={{}}>
+                    <RadioButton value="Female" />
+                    <Text>Female</Text>
+                  </View>
                 </View>
               </RadioButton.Group>
+
+              <Text style={{color: 'black', margin: 10}}>Date Of Birth</Text>
+              <Text></Text>
+              <TouchableOpacity onPress={showDatepicker}>
+                <TextInput
+                  mode="outlined"
+                  label={'Date Of Birth'}
+                  placeholder={'Enter Your Date Of Birth'}
+                  // value={date ? moment(date).format('DD/MM/YYYY') : ''}
+                  // value={moment(date).format('DD/MM/YYYY') }
+                  
+                  value={userData ? moment(userData.dob).format('DD/MM/YYYY').toString()  : moment(date).format('DD/MM/YYYY')}
+                  // value={userData ? userData.dob : moment(date).format('DD/MM/YYYY')}
+                onChangeText={value  => setUserData({...userData, dob: value})}
+
+                  disabled
+                  style={styles.TextInput}
+                  keyboardType="default"
+                  // maxLength={10}
+                  theme={{
+                    colors: {
+                      text: 'black',
+                      primary: '#01b7a9',
+                      placeholder: 'gray',
+                    },
+                  }}
+                />
+              </TouchableOpacity>
+
+              {/* <TextInput
+              onPressIn={() => setOpen(true)}
+                mode="outlined"
+                label={'Date Of Birth'}
+                placeholder={'Enter Your Date Of Birth'}
+                // value={userData ? userData.dob : ''}
+                value={userData ? userData.dob : date ? date.toString() : ''}
+                // onChangeText={value =>
+                //   // setDate(value)
+                //   setUserData({...userData, dob: value})
+                // }
+                style={styles.TextInput}
+                // keyboardType="numeric"
+                // maxLength={10}
+                theme={{
+                  colors: {
+                    text: 'black',
+                    primary: '#01b7a9',
+                    placeholder: 'gray',
+                  },
+                }}
+              />
+              {console.log(date)}
+      <DatePicker
+      title={null}
+        modal
+        mode="date"
+        open={open}
+        date={date}
+        onConfirm={(date) => {
+          setOpen(false)
+          // setDate(date)
+          setUserData({...userData, dob: date})
+        }}
+        onCancel={() => {
+          setOpen(false)
+        }}
+      /> */}
+              <Text style={{color: 'black', margin: 10}}>Age</Text>
+              <TextInput
+                mode="outlined"
+                label={'Age'}
+                placeholder={'Enter Your Age'}
+                value={userData ? userData.age : ''}
+                onChangeText={value => setUserData({...userData, age: value})}
+                style={styles.TextInput}
+                keyboardType="numeric"
+                maxLength={2}
+                theme={{
+                  colors: {
+                    text: 'black',
+                    primary: '#01b7a9',
+                    placeholder: 'gray',
+                  },
+                }}
+              />
+              <Text style={{color: 'black', margin: 10}}>Aadhaar</Text>
+              <TextInput
+                mode="outlined"
+                label={'Aadhaar Number'}
+                placeholder={'Enter Your Aadhaar number'}
+                value={userData ? userData.aadhaar : ''}
+                onChangeText={value =>
+                  setUserData({...userData, aadhaar: value})
+                }
+                style={styles.TextInput}
+                keyboardType="numeric"
+                maxLength={10}
+                theme={{
+                  colors: {
+                    text: 'black',
+                    primary: '#01b7a9',
+                    placeholder: 'gray',
+                  },
+                }}
+              />
+              <Text style={{color: 'black', margin: 10}}>Teacher UID</Text>
+              <TextInput
+                mode="outlined"
+                label={'Teacher UID'}
+                placeholder={'Enter UID number'}
+                value={userData ? userData.teacherUid : ''}
+                onChangeText={value =>
+                  setUserData({...userData, teacherUid: value})
+                }
+                style={styles.TextInput}
+                keyboardType="numeric"
+                maxLength={10}
+                theme={{
+                  colors: {
+                    text: 'black',
+                    primary: '#01b7a9',
+                    placeholder: 'gray',
+                  },
+                }}
+              />
             </View>
+            <Button
+              onPress={handleUpdate}
+              color="white"
+              style={styles.updateBtn}>
+              Update
+            </Button>
           </View>
-          <Button onPress={handleUpdate} color="white" style={styles.updateBtn}>
-            Update
-          </Button>
-        </View>
+        </ScrollView>
       )}
     </>
   );
@@ -310,6 +481,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#01b7a9',
     alignSelf: 'center',
     width: '50%',
+    marginVertical: 30,
   },
 });
 export default EditProfile;

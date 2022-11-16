@@ -92,7 +92,7 @@ const Home = ({navigation}) => {
               }}>
               <View
                 style={{
-                  borderRadius: 5,
+                  // borderRadius: 5,
                   elevation: 5,
                   height: 40,
                   width: '100%',
@@ -114,9 +114,10 @@ const Home = ({navigation}) => {
                     color: 'white',
                     fontSize: 17,
                   }}>
-                  Profile status {Data.status}...
+                  {/* Profile status {Data.status}... */}
+                  I am present 
                 </Text>
-                <Image
+                {/* <Image
                   style={{width: 35, height: 35}}
                   source={{
                     uri:
@@ -126,7 +127,7 @@ const Home = ({navigation}) => {
                         ? rejectedIcon
                         : pendingIcon,
                   }}
-                />
+                /> */}
               </View>
             </View>
           ) : null}
@@ -279,7 +280,7 @@ const Home = ({navigation}) => {
               </View>
             </ScrollView>
 
-            <View
+            {/* <View
               style={{
                 backgroundColor: 'white',
                 flexDirection: 'row',
@@ -327,7 +328,7 @@ const Home = ({navigation}) => {
                   7. Connecting to the development server...
                 </Text>
               </View>
-            </View>
+            </View> */}
           </View>
         </SafeAreaView>
       )}

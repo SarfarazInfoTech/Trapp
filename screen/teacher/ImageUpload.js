@@ -14,24 +14,39 @@ import storage from '@react-native-firebase/storage';
 import Auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import database from '@react-native-firebase/database';
+import SelectPicker from 'react-native-form-select-picker';
 
+const options = [
+  'Aadhaar Card *',
+  'Bank Passbook',
+  'Income Certificate *',
+  'Domicile Certificate *',
+  'SSC (10th) Marksheet *',
+  'HSC (12th) Marksheet *',
+  'Diploma Marksheet *',
+  'Degree Marksheet *',
+  'Cast Certificate (if required)',
+  'Cast Validity (if required)',
+  'Non Creamy Layer Certificate',
+];
 const ImageUpload = ({navigation}) => {
   const [ImageData, setImageData] = useState(null);
   const [fullImagePath, setfullImagePath] = useState('');
   const [imgDownloadUrl, setimgDownloadUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [docuName, setdocuName] = useState('');
+  const [selected, setSelected] = useState();
 
   const picImage = async () => {
     try {
       if (!docuName) {
-        alert('Please write document name then select document');
+        alert('Please select document name.');
       } else {
         const responce = await DocumentPicker.pickSingle({
           type: [DocumentPicker.types.images],
           copyTo: 'cachesDirectory',
         });
-          // console.log('PicImage', responce);
+        // console.log('PicImage', responce);
         setImageData(responce);
       }
     } catch (err) {
@@ -54,8 +69,8 @@ const ImageUpload = ({navigation}) => {
         documentName: docuName,
         documentURL: url,
         status: 'pending',
-      })
-      
+      });
+
       navigation.navigate('Home');
       Alert.alert(
         'Uploded Successfully',
@@ -97,12 +112,58 @@ const ImageUpload = ({navigation}) => {
           />
         </View>
       ) : (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            backgroundColor: 'white',
+          }}>
+          <View style={{backgroundColor: 'white'}}>
+            <SelectPicker
+              placeholder="-- Select Document Name --"
+              placeholderStyle={{fontSize: 18, color: 'gray'}}
+              onSelectedStyle={{fontSize: 18, color: '#01b7a9'}}
+              style={{
+                borderRadius: 3,
+                borderWidth: 2,
+                borderColor: '#01b7a9',
+                padding: 5,
+                paddingHorizontal: 10,
+                marginVertical: 15,
+              }}
+              containerStyle={{}}
+              doneButtonText="Done"
+              doneButtonTextStyle={{
+                textAlign: 'center',
+                color: '#1976D2',
+                fontWeight: '500',
+                fontSize: 16,
+              }}
+              titleText="Upload Document"
+              titleTextStyle={{
+                textAlign: 'center',
+                color: 'black',
+                fontSize: 16,
+              }}
+              onValueChange={value => {
+                setSelected(value);
+                setdocuName(value);
+              }}
+              selected={selected}>
+              {Object.values(options).map((val, index) => (
+                <SelectPicker.Item label={val} value={val} key={val} />
+              ))}
+            </SelectPicker>
+            <Button title="Choose" onPress={() => picImage()} />
+          </View>
           {ImageData ? (
-            <Image
-              source={{uri: ImageData.uri}}
-              style={{width: '95%', height: '80%', margin: 10}}
-            />
+            <View style={{width: '95%', height: '70%', margin: 15}}>
+              <Image
+                source={{uri: ImageData.uri}}
+                style={{width: '100%', height: '100%'}}
+              />
+            </View>
           ) : null}
 
           <View
@@ -119,26 +180,7 @@ const ImageUpload = ({navigation}) => {
                 title="Upload Document"
                 onPress={() => uploadImage()}
               />
-            ) : (
-              <>
-                <TextInput
-                  style={{
-                    color: 'darkgreen',
-                    borderRadius: 5,
-                    borderWidth: 1,
-                    borderColor: 'gray',
-                    padding: 3,
-                    paddingHorizontal: 15,
-                    margin: 5,
-                  }}
-                  placeholder="Document name"
-                  value={docuName}
-                  onChangeText={value => setdocuName(value)}
-                  maxLength={15}
-                />
-                <Button title="Select Document" onPress={() => picImage()} />
-              </>
-            )}
+            ) : null}
           </View>
 
           {/* <Text style={{margin: 10}}>{fullImagePath}</Text> */}
