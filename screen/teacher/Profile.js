@@ -166,7 +166,7 @@ const Profile = ({navigation}) => {
           </View>
           <View style={styles.hedName}>
             <Text style={styles.fieldInput}>Birth date :</Text>
-            <Text style={styles.valueInput}>{moment(Data.dob).format('DD/MM/YYYY')} {Data.dob}</Text>
+            <Text style={styles.valueInput}>{Data.dob}</Text>
           </View>
           <View style={styles.hedName}>
             <Text style={styles.fieldInput}>Account :</Text>

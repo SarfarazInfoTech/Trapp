@@ -85,6 +85,10 @@ const EditProfile = ({navigation}) => {
           teacherUid: userData.teacherUid,
           age: userData.age,
           dob: userData.dob,
+          address: userData.address,
+          state: userData.state,
+          district: userData.district,
+          pincode: userData.pincode,
           // dob: date,
           updateAt: firestore.Timestamp.fromDate(new Date()),
         })
@@ -128,7 +132,6 @@ const EditProfile = ({navigation}) => {
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setDate(currentDate);
-    
   };
   const showMode = currentMode => {
     DateTimePickerAndroid.open({
@@ -310,8 +313,22 @@ const EditProfile = ({navigation}) => {
               </RadioButton.Group>
 
               <Text style={{color: 'black', margin: 10}}>Date Of Birth</Text>
-              <Text></Text>
-              <TouchableOpacity onPress={showDatepicker}>
+              <TextInput
+                mode="outlined"
+                label={'Date Of Birth'}
+                placeholder={'DD-MM-YYYY'}
+                value={userData ? userData.dob : ''}
+                onChangeText={value => setUserData({...userData, dob: value})}
+                style={styles.TextInput}
+                theme={{
+                  colors: {
+                    text: 'black',
+                    primary: '#01b7a9',
+                    placeholder: 'gray',
+                  },
+                }}
+              />
+              {/* <TouchableOpacity onPress={showDatepicker}>
                 <TextInput
                   mode="outlined"
                   label={'Date Of Birth'}
@@ -335,7 +352,7 @@ const EditProfile = ({navigation}) => {
                     },
                   }}
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
 
               {/* <TextInput
               onPressIn={() => setOpen(true)}
@@ -404,7 +421,7 @@ const EditProfile = ({navigation}) => {
                 }
                 style={styles.TextInput}
                 keyboardType="numeric"
-                maxLength={10}
+                maxLength={12}
                 theme={{
                   colors: {
                     text: 'black',
@@ -423,8 +440,8 @@ const EditProfile = ({navigation}) => {
                   setUserData({...userData, teacherUid: value})
                 }
                 style={styles.TextInput}
-                keyboardType="numeric"
-                maxLength={10}
+                keyboardType="ascii-capable"
+                maxLength={15}
                 theme={{
                   colors: {
                     text: 'black',
@@ -434,6 +451,91 @@ const EditProfile = ({navigation}) => {
                 }}
               />
             </View>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Image
+                style={{
+                  height: 25,
+                  width: 25,
+                  margin: 10,
+                }}
+                source={{
+                  uri: 'https://png.pngitem.com/pimgs/s/146-1466755_nearby-transparent-background-address-icon-hd-png-download.png',
+                }}
+              />
+              <Text style={{fontSize: 16, fontWeight: '500'}}>Address</Text>
+            </View>
+
+            {/* <Text style={{color: 'black', margin: 10}}>Address</Text> */}
+            <TextInput
+              mode="outlined"
+              label={'Address'}
+              placeholder={'Address'}
+              value={userData ? userData.address : ''}
+              onChangeText={value => setUserData({...userData, address: value})}
+              style={styles.TextInput}
+              keyboardType="ascii-capable"
+              maxLength={40}
+              theme={{
+                colors: {
+                  text: 'black',
+                  primary: '#01b7a9',
+                  placeholder: 'gray',
+                },
+              }}
+            />
+            <TextInput
+              mode="outlined"
+              label={'State'}
+              placeholder={'State'}
+              value={userData ? userData.state : ''}
+              onChangeText={value => setUserData({...userData, state: value})}
+              style={styles.TextInput}
+              keyboardType="ascii-capable"
+              // maxLength={15}
+              theme={{
+                colors: {
+                  text: 'black',
+                  primary: '#01b7a9',
+                  placeholder: 'gray',
+                },
+              }}
+            />
+            <TextInput
+              mode="outlined"
+              label={'District'}
+              placeholder={'District'}
+              value={userData ? userData.district : ''}
+              onChangeText={value =>
+                setUserData({...userData, district: value})
+              }
+              style={styles.TextInput}
+              keyboardType="ascii-capable"
+              // maxLength={15}
+              theme={{
+                colors: {
+                  text: 'black',
+                  primary: '#01b7a9',
+                  placeholder: 'gray',
+                },
+              }}
+            />
+            <TextInput
+              mode="outlined"
+              label={'Pincode'}
+              placeholder={'Pincode'}
+              value={userData ? userData.pincode : ''}
+              onChangeText={value => setUserData({...userData, pincode: value})}
+              style={styles.TextInput}
+              keyboardType="numeric"
+              maxLength={6}
+              theme={{
+                colors: {
+                  text: 'black',
+                  primary: '#01b7a9',
+                  placeholder: 'gray',
+                },
+              }}
+            />
             <Button
               onPress={handleUpdate}
               color="white"
