@@ -87,8 +87,21 @@ const Documents = ({navigation}) => {
                           }}
                         />
                       </View>
-                      <Text style={styles.statusBtn}>
-                        Documents {item.item.status}
+                      <Text
+                        style={[
+                          styles.statusBtn,
+                          {
+                            backgroundColor:
+                              item.item.status === 'pending'
+                                ? 'orange'
+                                : item.item.status === 'approved'
+                                ? 'green'
+                                : item.item.status === 'rejected'
+                                ? 'red'
+                                : null,
+                          },
+                        ]}>
+                        Document {item.item.status}
                       </Text>
                     </View>
                   );
@@ -133,7 +146,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     padding: 5,
-    backgroundColor: 'orange',
     width: '95%',
     borderRadius: 3,
     textAlign: 'center',
