@@ -319,6 +319,8 @@ const EditProfile = ({navigation}) => {
                 value={userData ? userData.dob : ''}
                 onChangeText={value => setUserData({...userData, dob: value})}
                 style={styles.TextInput}
+                keyboardType="decimal-pad"
+                maxLength={10}
                 theme={{
                   colors: {
                     text: 'black',
@@ -438,8 +440,8 @@ const EditProfile = ({navigation}) => {
                 onChangeText={value =>
                   setUserData({...userData, teacherUid: value})
                 }
-                style={styles.TextInput}
-                keyboardType="ascii-capable"
+                style={[styles.TextInput, {textTransform: 'uppercase'}]}
+                // keyboardType="ascii-capable"
                 maxLength={15}
                 theme={{
                   colors: {

@@ -7,12 +7,16 @@ import {
   Modal,
   Alert,
   Pressable,
+  ScrollView,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import Auth from '@react-native-firebase/auth';
 import {Button, TextInput, FAB} from 'react-native-paper';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
+import {logOutIcon, profileEditIcon} from '../data/data.json';
 
 const Profile = ({navigation}) => {
   const [loading, setLoading] = useState(true);
@@ -97,137 +101,169 @@ const Profile = ({navigation}) => {
         </View>
       ) : (
         <View style={{flex: 1, backgroundColor: 'white'}}>
-          <Button
+          <TouchableOpacity
+            style={styles.fab}
+            onPress={() => navigation.navigate('Edit Profile')}>
+            <Image
+              style={{
+                backgroundColor: 'white',
+                height: 50,
+                width: 50,
+                left: 10,
+              }}
+              source={{
+                uri: 'https://png.pngtree.com/png-vector/20190330/ourlarge/pngtree-vector-edit-icon-png-image_890175.jpg',
+              }}
+            />
+          </TouchableOpacity>
+          {/* <Button
             style={styles.fab}
             color={'white'}
             onPress={() => navigation.navigate('Edit Profile')}>
             Edit Profile
-          </Button>
-          <Text
-            style={{
-              color: 'black',
-              fontSize: 14,
-              alignSelf: 'center',
-              margin: 20,
-            }}>
-            Provide your personal information, even if the account is used for
-            yours Jobs.
-          </Text>
-          <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>Name :</Text>
-            <Text style={styles.valueInput}>{Data.name}</Text>
-          </View>
-          <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>Email :</Text>
-            <Text style={[styles.valueInput, {flex: 5}]}>{Data.email}</Text>
-            {Auth().currentUser.emailVerified ? (
-              <Text style={{color: 'green', fontSize: 12}}> Verified</Text>
-            ) : (
-              <Text style={{color: 'red', fontSize: 12}}>Not verified</Text>
-            )}
-          </View>
-          <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>Mobile :</Text>
-            <Text style={[styles.valueInput, {flex: 5}]}>
-              +91 {Data.mobile}
-            </Text>
-            {Auth().currentUser.phoneNumber ? (
-              <Text style={{color: 'green', fontSize: 12}}> Verified</Text>
-            ) : (
-              <Text style={{color: 'red', fontSize: 12}}>Not verified</Text>
-            )}
-          </View>
-          {!Auth().currentUser.phoneNumber ? (
-            <Button
-              style={{alignSelf: 'flex-end', width: '27%', bottom: 10, left: 5}}
-              color="green"
-              onPress={() => verifyPhoneNumber()}>
-              <Text style={{fontSize: 11}}>Send OTP</Text>
-            </Button>
-          ) : null}
-          <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>Gender :</Text>
-            <Text style={styles.valueInput}>{Data.gender}</Text>
-          </View>
-          <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>Age :</Text>
-            <Text style={styles.valueInput}>{Data.age} years old</Text>
-          </View>
-          <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>DOB :</Text>
-            <Text style={styles.valueInput}>{Data.dob}</Text>
-          </View>
-          <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>UID :</Text>
-            <Text style={styles.valueInput}>{Data.teacherUid}</Text>
-          </View>
-          <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>Aadhaar :</Text>
-            <Text style={styles.valueInput}>{Data.aadhaar.match(/.{1,4}/g).join(' ')}</Text>
-          </View>
-          <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>Address :</Text>
-            <Text style={styles.valueInput}>{Data.address} {Data.district}, {Data.state} - {Data.pincode}</Text>
-          </View>
-          
-          <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>Account :</Text>
-            <Text style={styles.valueInput}>Your Profile has been {Data.status}</Text>
-          </View>
-
-          <View style={styles.centeredView}>
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={modalVisible}
-              onRequestClose={() => {
-                Alert.alert('Cancel verification');
-                setModalVisible(!modalVisible);
+          </Button> */}
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 14,
+                alignSelf: 'center',
+                margin: 20,
               }}>
-              <View style={[styles.centeredView, {backgroundColor: '#aaaa'}]}>
-                <View style={styles.modalView}>
-                  {/* <Text style={styles.modalText}>Verification Code</Text> */}
-                  <Text style={styles.modalText}>One Time Password</Text>
-                  <Text style={{textAlign: 'center'}}>
-                    Please copy the verification code send to your mobile then
-                    submit
-                    <Text style={{fontWeight: '500'}}>
-                      {'\n\n +91 ' + Data.mobile}
+              Provide your personal information, even if the account is used for
+              yours Jobs.
+            </Text>
+            <View style={styles.hedName}>
+              <Text style={styles.fieldInput}>Name :</Text>
+              <Text style={styles.valueInput}>{Data.name}</Text>
+            </View>
+            <View style={styles.hedName}>
+              <Text style={styles.fieldInput}>Email :</Text>
+              <Text style={[styles.valueInput, {flex: 5}]}>{Data.email}</Text>
+              {Auth().currentUser.emailVerified ? (
+                <Text style={{color: 'green', fontSize: 12}}> Verified</Text>
+              ) : (
+                <Text style={{color: 'red', fontSize: 12}}>Not verified</Text>
+              )}
+            </View>
+            <View style={styles.hedName}>
+              <Text style={styles.fieldInput}>Mobile :</Text>
+              <Text style={[styles.valueInput, {flex: 5}]}>
+                +91 {Data.mobile}
+              </Text>
+              {Auth().currentUser.phoneNumber ? (
+                <Text style={{color: 'green', fontSize: 12}}> Verified</Text>
+              ) : (
+                <Text style={{color: 'red', fontSize: 12}}>Not verified</Text>
+              )}
+            </View>
+            {!Auth().currentUser.phoneNumber ? (
+              <Button
+                style={{
+                  alignSelf: 'flex-end',
+                  width: '27%',
+                  bottom: 10,
+                  left: 5,
+                }}
+                color="green"
+                onPress={() => verifyPhoneNumber()}>
+                <Text style={{fontSize: 11}}>Send OTP</Text>
+              </Button>
+            ) : null}
+            <View style={styles.hedName}>
+              <Text style={styles.fieldInput}>Gender :</Text>
+              <Text style={styles.valueInput}>{Data.gender}</Text>
+            </View>
+            <View style={styles.hedName}>
+              <Text style={styles.fieldInput}>Age :</Text>
+              <Text style={styles.valueInput}>
+                {Data.age ? `${Data.age} years old` : null}{' '}
+              </Text>
+            </View>
+            <View style={styles.hedName}>
+              <Text style={styles.fieldInput}>DOB :</Text>
+              <Text style={styles.valueInput}>{Data.dob}</Text>
+            </View>
+            <View style={styles.hedName}>
+              <Text style={styles.fieldInput}>UID :</Text>
+              <Text style={styles.valueInput}>{Data.teacherUid}</Text>
+            </View>
+            <View style={styles.hedName}>
+              <Text style={styles.fieldInput}>Aadhaar :</Text>
+              <Text style={styles.valueInput}>
+                {Data.aadhaar ? Data.aadhaar.match(/.{1,4}/g).join(' ') : null}
+              </Text>
+            </View>
+            <View style={styles.hedName}>
+              <Text style={styles.fieldInput}>Address :</Text>
+              <Text style={styles.valueInput}>
+                {Data.address} {Data.district} {Data.state} {Data.pincode}
+              </Text>
+            </View>
+
+            <View style={[styles.hedName, {marginBottom: 60}]}>
+              <Text style={styles.fieldInput}>Account :</Text>
+              <Text style={styles.valueInput}>
+                Your Profile has been {Data.status}
+              </Text>
+            </View>
+
+            <View style={styles.centeredView}>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                  Alert.alert('Cancel verification');
+                  setModalVisible(!modalVisible);
+                }}>
+                <View style={[styles.centeredView, {backgroundColor: '#aaaa'}]}>
+                  <View style={styles.modalView}>
+                    {/* <Text style={styles.modalText}>Verification Code</Text> */}
+                    <Text style={styles.modalText}>One Time Password</Text>
+                    <Text style={{textAlign: 'center'}}>
+                      Please copy the verification code send to your mobile then
+                      submit
+                      <Text style={{fontWeight: '500'}}>
+                        {'\n\n +91 ' + Data.mobile}
+                      </Text>
                     </Text>
-                  </Text>
-                  <View style={{flexDirection: 'row', marginVertical: 40}}>
-                    <OTPInputView
-                      keyboardType="number-pad"
-                      style={{height: 50}}
-                      pinCount={6}
-                      code={code}
-                      onCodeChanged={code => setCode(code)}
-                      autoFocusOnLoad
-                      codeInputFieldStyle={styles.underlineStyleBase}
-                      codeInputHighlightStyle={styles.underlineStyleHighLighted}
-                      onCodeFilled={code => {
-                        console.log(`Code is ${code}, you are good to go!`);
-                      }}
-                    />
+                    <View style={{flexDirection: 'row', marginVertical: 40}}>
+                      <OTPInputView
+                        keyboardType="number-pad"
+                        style={{height: 50}}
+                        pinCount={6}
+                        code={code}
+                        onCodeChanged={code => setCode(code)}
+                        autoFocusOnLoad
+                        codeInputFieldStyle={styles.underlineStyleBase}
+                        codeInputHighlightStyle={
+                          styles.underlineStyleHighLighted
+                        }
+                        onCodeFilled={code => {
+                          console.log(`Code is ${code}, you are good to go!`);
+                        }}
+                      />
+                    </View>
+                    {code.length === 6 ? (
+                      <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => confirmCode()}>
+                        <Text style={styles.textStyle}>Submit</Text>
+                      </Pressable>
+                    ) : (
+                      <Pressable
+                        disabled
+                        style={[styles.button, {backgroundColor: 'gray'}]}
+                        onPress={() => confirmCode()}>
+                        <Text style={styles.textStyle}>Submit</Text>
+                      </Pressable>
+                    )}
                   </View>
-                  {code.length === 6 ? (
-                    <Pressable
-                      style={[styles.button, styles.buttonClose]}
-                      onPress={() => confirmCode()}>
-                      <Text style={styles.textStyle}>Submit</Text>
-                    </Pressable>
-                  ) : (
-                    <Pressable
-                      disabled
-                      style={[styles.button, {backgroundColor: 'gray'}]}
-                      onPress={() => confirmCode()}>
-                      <Text style={styles.textStyle}>Submit</Text>
-                    </Pressable>
-                  )}
                 </View>
-              </View>
-            </Modal>
-          </View>
+              </Modal>
+            </View>
+          </ScrollView>
         </View>
       )}
     </>
@@ -263,7 +299,7 @@ const styles = StyleSheet.create({
     right: 10,
     bottom: 20,
     zIndex: 5,
-    backgroundColor: '#01b7a9',
+    // backgroundColor: '#01b7a9',
   },
 
   centeredView: {

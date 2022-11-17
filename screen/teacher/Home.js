@@ -10,6 +10,7 @@ import {
   ScrollView,
   ActivityIndicator,
   RefreshControl,
+  Alert,
 } from 'react-native';
 import {
   teacherImage,
@@ -168,9 +169,19 @@ const Home = ({navigation}) => {
                 </View>
               </View>
               <TouchableOpacity
-                onPress={async () => {
-                  await Auth().signOut();
-                  navigation.dispatch(StackActions.replace('MainScreen'));
+                onPress={() => {
+                  Alert.alert('Logout?', 'Are you sure you want to Logout?', [
+                    {
+                      text: 'Yes',
+                      onPress: async () => await Auth().signOut(),
+                      // onPress: () =>
+                      //   navigation.dispatch(StackActions.replace('MainScreen')),
+                    },
+                    {
+                      text: 'No',
+                      onPress: () => console.log('No'),
+                    },
+                  ]);
                 }}
                 style={{alignSelf: 'center'}}>
                 <Image

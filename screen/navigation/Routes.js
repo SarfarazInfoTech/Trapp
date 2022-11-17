@@ -131,22 +131,22 @@ export default function Routes() {
           options={{
             headerShown: true,
 
-            headerRight: () => (
-              <TouchableOpacity
-                onPress={() => alert('Please click EDIT PROFILE button.')}>
-                <Image
-                  style={{
-                    backgroundColor: 'white',
-                    height: 40,
-                    width: 40,
-                    left: 10,
-                  }}
-                  source={{
-                    uri: profileEditIcon,
-                  }}
-                />
-              </TouchableOpacity>
-            ),
+            // headerRight: () => (
+            //   <TouchableOpacity
+            //     onPress={() => alert('Please click EDIT PROFILE button.')}>
+            //     <Image
+            //       style={{
+            //         backgroundColor: 'white',
+            //         height: 40,
+            //         width: 40,
+            //         left: 10,
+            //       }}
+            //       source={{
+            //         uri: profileEditIcon,
+            //       }}
+            //     />
+            //   </TouchableOpacity>
+            // ),
           }}
         />
 
