@@ -71,7 +71,7 @@ const EditProfile = ({navigation}) => {
       setfullImagePath(put.metadata.fullPath);
       const url = await responce.getDownloadURL();
       setimgDownloadUrl(url);
-
+      // const url = null
       await firestore()
         .collection('users')
         .doc(`${document}`)
@@ -79,7 +79,7 @@ const EditProfile = ({navigation}) => {
           name: userData.name,
           email: userData.email,
           mobile: userData.mobile,
-          image: url,
+          image: url === null ? profilePic : url,
           gender: userData.gender,
           aadhaar: userData.aadhaar,
           teacherUid: userData.teacherUid,
@@ -89,7 +89,6 @@ const EditProfile = ({navigation}) => {
           state: userData.state,
           district: userData.district,
           pincode: userData.pincode,
-          // dob: date,
           updateAt: firestore.Timestamp.fromDate(new Date()),
         })
         .then(() => {
@@ -125,7 +124,7 @@ const EditProfile = ({navigation}) => {
 
     getUser();
     getDatabase();
-    handleUpdate();
+    // handleUpdate();
   }, []);
 
   const [date, setDate] = useState(new Date());

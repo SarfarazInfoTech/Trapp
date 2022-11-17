@@ -13,9 +13,6 @@ import firestore from '@react-native-firebase/firestore';
 import Auth from '@react-native-firebase/auth';
 import {Button, TextInput, FAB} from 'react-native-paper';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
-import RNOtpVerify from 'react-native-otp-verify';
-import moment from 'moment';
-
 
 const Profile = ({navigation}) => {
   const [loading, setLoading] = useState(true);
@@ -39,18 +36,6 @@ const Profile = ({navigation}) => {
     };
 
     getDatabase();
-    // RNOtpVerify.getHash().then(console.log).catch(console.log);
-    // RNOtpVerify.getOtp()
-    //   .then(p => RNOtpVerify.addListener(otpHandler))
-    //   .catch(p => console.log('Catch Error', p));
-    //   const otpHandler = message => {
-    //     console.log('Message One Time Password', message);
-    //     const otp = /(\d{6})/g.exec(message)[1];
-    //     console.log('OTP is', otp);
-    //     setCode({otp});
-    //     RNOtpVerify.removeListener();
-    //   };
-    // return () => RNOtpVerify.removeListener();
   }, []);
 
   async function verifyPhoneNumber() {
@@ -165,12 +150,29 @@ const Profile = ({navigation}) => {
             <Text style={styles.valueInput}>{Data.gender}</Text>
           </View>
           <View style={styles.hedName}>
-            <Text style={styles.fieldInput}>Birth date :</Text>
+            <Text style={styles.fieldInput}>Age :</Text>
+            <Text style={styles.valueInput}>{Data.age} years old</Text>
+          </View>
+          <View style={styles.hedName}>
+            <Text style={styles.fieldInput}>DOB :</Text>
             <Text style={styles.valueInput}>{Data.dob}</Text>
           </View>
           <View style={styles.hedName}>
+            <Text style={styles.fieldInput}>UID :</Text>
+            <Text style={styles.valueInput}>{Data.teacherUid}</Text>
+          </View>
+          <View style={styles.hedName}>
+            <Text style={styles.fieldInput}>Aadhaar :</Text>
+            <Text style={styles.valueInput}>{Data.aadhaar.match(/.{1,4}/g).join(' ')}</Text>
+          </View>
+          <View style={styles.hedName}>
+            <Text style={styles.fieldInput}>Address :</Text>
+            <Text style={styles.valueInput}>{Data.address} {Data.district}, {Data.state} - {Data.pincode}</Text>
+          </View>
+          
+          <View style={styles.hedName}>
             <Text style={styles.fieldInput}>Account :</Text>
-            <Text style={styles.valueInput}>{Data.status}</Text>
+            <Text style={styles.valueInput}>Your Profile has been {Data.status}</Text>
           </View>
 
           <View style={styles.centeredView}>
