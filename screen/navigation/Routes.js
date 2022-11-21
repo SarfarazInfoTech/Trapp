@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Button, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Button, Image, TouchableOpacity, Alert} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {logOutIcon, profileEditIcon} from '../data/data.json';
@@ -20,6 +20,8 @@ import EditProfile from '../teacher/EditProfile';
 import Academic from '../teacher/Academic';
 import Career from '../teacher/Career';
 import OtpLogin from '../teacher/OtpLogin';
+import PostingDetails from '../teacher/PostingDetails';
+import QualifiDetails from '../teacher/QualifiDetails';
 
 const Stack = createNativeStackNavigator();
 export default function Routes() {
@@ -101,7 +103,23 @@ export default function Routes() {
           options={{
             headerShown: true,
             headerRight: () => (
-              <TouchableOpacity onPress={() => Auth().signOut()}>
+              <TouchableOpacity 
+              onPress={() => {
+                Alert.alert('Logout?', 'Are you sure you want to Logout?', [
+                  {
+                    text: 'Yes',
+                    onPress: async () => await Auth().signOut(),
+                    // onPress: () =>
+                    //   navigation.dispatch(StackActions.replace('MainScreen')),
+                  },
+                  {
+                    text: 'No',
+                    onPress: () => console.log('No'),
+                  },
+                ]);
+              }}
+              //  onPress={() => Auth().signOut()}
+               >
                 <Image
                   style={{backgroundColor: 'white', height: 35, width: 35}}
                   source={{
@@ -122,6 +140,18 @@ export default function Routes() {
         <Stack.Screen
           name="Career"
           component={Career}
+          options={{headerShown: true}}
+        />
+
+        <Stack.Screen
+          name="Posting Details"
+          component={PostingDetails}
+          options={{headerShown: true}}
+        />
+
+        <Stack.Screen
+          name="Qualification Details"
+          component={QualifiDetails}
           options={{headerShown: true}}
         />
 

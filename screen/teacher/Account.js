@@ -55,11 +55,23 @@ const Account = ({navigation}) => {
     },
     {
       id: '6',
-      icon: logOutIcon,
-      name: 'Logout',
-      routes: 'MainScreen',
-      // signOut: Auth().signOut()
+      icon: "https://th.bing.com/th/id/OIP.JlQh9WJESNlh9qT20cKnxwHaHa?pid=ImgDet&w=512&h=512&rs=1",
+      name: 'Qualification Details',
+      routes: 'Qualification Details',
     },
+    {
+      id: '7',
+      icon: 'https://th.bing.com/th/id/OIP.E38gpnb0CTxyaHE6eDEKOQHaGV?pid=ImgDet&rs=1',
+      name: 'Posting Details',
+      routes: 'Posting Details',
+    },
+    // {
+      // id: '8',
+      // icon: logOutIcon,
+      // name: 'Logout',
+      // routes: 'MainScreen',
+      // signOut: Auth().signOut()
+    // },
   ];
 
   const [loading, setLoading] = useState(true);
