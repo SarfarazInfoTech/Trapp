@@ -22,6 +22,9 @@ import Career from '../teacher/Career';
 import OtpLogin from '../teacher/OtpLogin';
 import PostingDetails from '../teacher/PostingDetails';
 import QualifiDetails from '../teacher/QualifiDetails';
+import Attendance from '../teacher/Attendance';
+import Expertise from '../teacher/Expertise';
+import Experience from '../teacher/Experience';
 
 const Stack = createNativeStackNavigator();
 export default function Routes() {
@@ -38,6 +41,12 @@ export default function Routes() {
           name="SplashScreen"
           component={SplashScreen}
           options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="Attendance"
+          component={Attendance}
+          options={{headerShown: true}}
         />
 
         <Stack.Screen
@@ -140,6 +149,18 @@ export default function Routes() {
         <Stack.Screen
           name="Career"
           component={Career}
+          options={{headerShown: true}}
+        />
+
+        <Stack.Screen
+          name="Expertise"
+          component={Expertise}
+          options={{headerShown: true}}
+        />
+
+        <Stack.Screen
+          name="Experience"
+          component={Experience}
           options={{headerShown: true}}
         />
 

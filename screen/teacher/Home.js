@@ -80,7 +80,7 @@ const Home = ({navigation}) => {
           />
         </View>
       ) : (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
           {Data.status ? (
             <View
               style={{
@@ -131,6 +131,31 @@ const Home = ({navigation}) => {
               </View>
             </View>
           ) : null}
+
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              marginHorizontal: 5,
+              padding: 3,
+              right: 10,
+              bottom: 25,
+              zIndex: 5,
+            }}
+            onPress={() => navigation.navigate('Attendance')}>
+            <Image
+              style={{
+                backgroundColor: 'white',
+                height: 60,
+                width: 60,
+                left: 10,
+                borderRadius: 100,
+                borderWidth: 2,
+              }}
+              source={{
+                uri: 'https://images.squarespace-cdn.com/content/v1/5b63fd637e3c3a7c95814b02/1536836703321-9CG89HETC30NVTYUXYFT/blue-icon.png',
+              }}
+            />
+          </TouchableOpacity>
           <View>
             <View
               style={{
@@ -294,7 +319,7 @@ const Home = ({navigation}) => {
                 </View>
               </ScrollView>
 
-              <View
+              {/* <View
                 style={{
                   backgroundColor: 'white',
                   flexDirection: 'row',
@@ -445,7 +470,7 @@ const Home = ({navigation}) => {
                     </Text>
                   </View>
                 </View>
-              </View>
+              </View> */}
             </ScrollView>
           </View>
         </SafeAreaView>
