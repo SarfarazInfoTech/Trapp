@@ -14,7 +14,7 @@ import Auth from '@react-native-firebase/auth';
 
 const Attendance = ({navigation}) => {
   const [loading, setLoading] = useState(true);
-  const [Data, setData] = useState({});
+  const [Data, setData] = useState([]);
   const [Status, setStatus] = useState('');
   const [selected, setSelected] = useState('');
 
@@ -72,6 +72,7 @@ const Attendance = ({navigation}) => {
           .collection('users')
           .doc(`${user}`)
           .collection('Attendance')
+          .orderBy("date", "asc")
           .get()
           .then(querySnapshot => {
             querySnapshot.forEach(data => {
@@ -88,7 +89,7 @@ const Attendance = ({navigation}) => {
     };
 
     getDatabase();
-  }, []);
+  },[]);
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
