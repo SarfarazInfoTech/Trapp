@@ -45,7 +45,7 @@ const Expertise = ({navigation}) => {
     }
   };
 
-  const uploadImage = async () => {
+  const uploadFile = async () => {
     setLoading(true);
     try {
       const UID = await Auth().currentUser.uid;
@@ -231,7 +231,7 @@ const Expertise = ({navigation}) => {
                 <Button
                   color="green"
                   title="Add Expertise"
-                  onPress={() => uploadImage()}
+                  onPress={() => uploadFile()}
                 />
               ) : null}
             </View>
